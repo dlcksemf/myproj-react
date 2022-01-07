@@ -4,6 +4,7 @@ import Login from 'pages/accounts/Login';
 import Profile from 'pages/accounts/Profile';
 import PageReviewList from 'pages/reviews/ReviewList';
 import TopNav from 'components/TopNav';
+import Components from 'pages/examples/Components';
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
         <Route path="/accounts/login/" element={<Login />} />
         <Route path="/accounts/profile/" element={<Profile />} />
         <Route path="/reviews/" element={<PageReviewList />} />
+        <Route path="/examples/components/" element={<Components />} />
         <Route path="*" element={<div>404</div>} />
       </Routes>
     </div>
