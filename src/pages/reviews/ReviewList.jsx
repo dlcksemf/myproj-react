@@ -57,8 +57,6 @@ function PageReviewList() {
       .finally(() => {
         setLoading(false);
       });
-
-    console.log('Deleting', deletingReview);
   };
 
   return (
