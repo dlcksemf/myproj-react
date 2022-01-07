@@ -21,7 +21,7 @@ function TopNav() {
 function MyLink({ to, children }) {
   return (
     <Link
-      className="pb-1 text-gray-500 hover:text-red-500 hover:border-red-500 border-b-4"
+      className="pb-1 text-gray-500 hover:text-red-500 hover:border-red-500 border-b-4 "
       to={to}
     >
       {children}
