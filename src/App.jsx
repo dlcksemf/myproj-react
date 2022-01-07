@@ -7,7 +7,7 @@ import TopNav from 'components/TopNav';
 
 function App() {
   return (
-    <div>
+    <div className="app">
       <TopNav />
       <Routes>
         <Route path="/" element={<div>welcome</div>} />
