@@ -1,15 +1,13 @@
-import { useState } from 'react';
 import Axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import useFieldValues from 'components/hooks/useFieldValues';
+
+const INITIAL_STATE = { content: '', score: 0 };
 
 function ReviewForm() {
-  const [fieldValues, setFieldValues] = useState({ content: '', score: 0 });
   const navigate = useNavigate();
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFieldValues((prevValue) => ({ ...prevValue, [name]: value }));
-  };
+  const [fieldValues, handleChange, emptyFieldValues, setFieldValues] =
+    useFieldValues(INITIAL_STATE);
 
   const submitReview = (e) => {
     e.preventDefault();
@@ -23,7 +21,7 @@ function ReviewForm() {
         console.error(error);
       })
       .finally(() => {
-        setFieldValues({});
+        emptyFieldValues();
       });
   };
 
