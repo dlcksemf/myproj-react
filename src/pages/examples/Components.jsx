@@ -10,6 +10,7 @@ function Components() {
       <Alert type="info">Info 메세지입니다.</Alert>
       <Alert type="success">Success 메세지입니다.</Alert>
       <Alert type="danger">Danger 메세지입니다.</Alert>
+      <Alert type="secondary">Secondary 메세지입니다.</Alert>
     </div>
   );
 }
