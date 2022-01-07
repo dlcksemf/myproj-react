@@ -1,7 +1,11 @@
 import Axios from 'axios';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
-function ReviewList() {
+import DebugStates from 'components/DebugStates';
+
+function PageReviewList() {
+  const [reviewList, setReviewList] = useState([]);
+
   useEffect(() => {
     refetch();
   }, []);
@@ -12,10 +16,12 @@ function ReviewList() {
     // Promise 객체
     // 상태코드 400 이상이면 오류 처리 이하면 정상 처리 => axios 자동 처리
     Axios.get(url)
-      .then((response) => {
+      .then(({ data }) => {
         console.group('normal response');
-        console.log(response);
+        console.log(data);
         console.groupEnd();
+
+        setReviewList(data);
       })
       .catch((error) => {
         console.group('error response');
@@ -26,9 +32,20 @@ function ReviewList() {
 
   return (
     <div>
-      <h2>hello</h2>
+      <h2>Review List</h2>
+
+      {reviewList.map((review) => {
+        return (
+          <div key={review.id}>
+            <h2>{review.content}</h2>
+          </div>
+        );
+      })}
+
+      <hr />
+      <DebugStates reviewList={reviewList} />
     </div>
   );
 }
 
-export default ReviewList;
+export default PageReviewList;
