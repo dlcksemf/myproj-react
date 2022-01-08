@@ -1,6 +1,8 @@
 import Axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import useFieldValues from 'components/hooks/useFieldValues';
+import { useParams } from "react-router-dom";
+import { useEffect } from 'react';
 
 const INITIAL_STATE = { content: '', score: 0 };
 
@@ -8,21 +10,45 @@ function ReviewForm() {
   const navigate = useNavigate();
   const [fieldValues, handleChange, emptyFieldValues, setFieldValues] =
     useFieldValues(INITIAL_STATE);
+  const { reviewId } = useParams();
+
+  useEffect(
+  () => {if (reviewId) {
+    Axios.get(`http://localhost:8000/shop/api/reviews/${reviewId}/`)
+      .then(({data}) => {setFieldValues(data);})
+      .catch((error) => { console.error(error)})
+  }}, []);
 
   const submitReview = (e) => {
     e.preventDefault();
-    const url = 'http://127.0.0.1:8000/shop/api/reviews/';
 
-    Axios.post(url, fieldValues)
-      .then(() => {
-        navigate('/reviews/');
-      })
-      .catch((error) => {
-        console.error(error);
-      })
-      .finally(() => {
-        emptyFieldValues();
-      });
+    const newUrl = 'http://127.0.0.1:8000/shop/api/reviews/';
+    const editUrl = `http://localhost:8000/shop/api/reviews/${reviewId}/`;
+
+    if (!reviewId) {
+      Axios.post(newUrl, fieldValues)
+        .then(() => {
+          navigate('/reviews/');
+        })
+        .catch((error) => {
+          console.error(error);
+        })
+        .finally(() => {
+          emptyFieldValues();
+        })
+    }
+    else {      
+      Axios.put(editUrl, fieldValues)
+        .then(() => {
+          navigate('/reviews/');
+        })
+        .catch((error) => {
+          console.error(error)
+        })
+        .finally(() =>{
+          emptyFieldValues();
+        })
+    }
   };
 
   return (
@@ -39,6 +65,7 @@ function ReviewForm() {
               name="score"
               className="shadow appearance-none rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
               onChange={handleChange}
+              value={fieldValues.score}
             >
               <option>0</option>
               <option>1</option>
@@ -51,6 +78,7 @@ function ReviewForm() {
           <div className="form-group mb-6">
             <textarea
               onChange={handleChange}
+              value={fieldValues.content}
               name="content"
               className="
         form-control

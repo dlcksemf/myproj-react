@@ -11,7 +11,6 @@ function Review({ review, handleEdit, handleDelete }) {
   return (
     <div className="bg-yellow-100 border border-yellow-400 my-1 p-1">
       <div>
-        {' '}
         <span
           onClick={() => handleEdit()}
           className="mr-1 hover:text-blue-400 cursor-pointer"
