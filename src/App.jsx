@@ -7,6 +7,8 @@ import TopNav from 'components/TopNav';
 import Components from 'pages/examples/Components';
 import ReviewForm from 'pages/reviews/ReviewForm';
 import PageBlogList from 'pages/blog/PageBlogList';
+import PageBlogDetail from 'pages/blog/PageBlogDetail';
+import PageBlogForm from 'pages/blog/PageBlogForm';
 
 function App() {
   return (
@@ -17,6 +19,9 @@ function App() {
         <Route path="/accounts/login/" element={<Login />} />
         <Route path="/accounts/profile/" element={<Profile />} />
         <Route path="/blog/" element={<PageBlogList />} />
+        <Route path="/blog/:postId/" element={<PageBlogDetail />} />
+        <Route path="/blog/new/" element={<PageBlogForm />} />
+        <Route path="/blog/:postId/edit/" element={<PageBlogForm />} />
         <Route path="/reviews/" element={<PageReviewList />} />
         <Route path="/reviews/new/" element={<ReviewForm />} />
         <Route path="/reviews/:reviewId/edit/" element={<ReviewForm />} />
