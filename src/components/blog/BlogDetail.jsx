@@ -1,13 +1,9 @@
-import DebugStates from 'components/DebugStates';
-
 function BlogDetail({ post, loading }) {
-  const { title } = post;
-
   return (
     <div>
       {loading && <h2>loading...</h2>}
-      {!loading && <h2>{title}</h2>}
-      <DebugStates post={post} />
+      {!loading && <h2 className="text-lg m-2">{post.title}</h2>}
+      {post.content}
     </div>
   );
 }

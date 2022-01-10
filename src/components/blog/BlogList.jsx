@@ -9,7 +9,7 @@ function BlogList({ post, navigate, handleDelete }) {
     }
   };
 
-  // TODO : image / button 기능 구현 / style로 content 말줄임
+  // TODO : image / style로 content 말줄임
   return (
     <div>
       <section className="pt-20 lg:pt-[120px] pb-10 lg:pb-20 bg-[#F3F4F6]">
@@ -49,7 +49,6 @@ function BlogList({ post, navigate, handleDelete }) {
                     {content}
                   </p>
 
-                  {/* 수정 / 삭제 버튼 */}
                   <div
                     className="
                      inline-block

@@ -5,7 +5,7 @@ import Axios from 'axios';
 
 function PageBlogDetail() {
   const { postId } = useParams();
-  const [post, setPost] = useState(null);
+  const [post, setPost] = useState({ title: '', content: '' });
   const [loading, setLoading] = useState(false);
 
   // error 구현
