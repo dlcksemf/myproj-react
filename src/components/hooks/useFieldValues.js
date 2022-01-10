@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
-function useFieldValues(initialState) {
-  const [fieldValues, setFieldValues] = useState(initialState);
+function useFieldValues(initialValues) {
+  const [fieldValues, setFieldValues] = useState(initialValues);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -9,7 +9,7 @@ function useFieldValues(initialState) {
   };
 
   const emptyFieldValues = () => {
-    setFieldValues(initialState);
+    setFieldValues(initialValues);
   };
 
   return [fieldValues, handleChange, emptyFieldValues, setFieldValues];

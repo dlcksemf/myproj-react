@@ -59,10 +59,6 @@ function PageReviewList() {
       });
   };
 
-  const editReview = (review) => {
-    navigate(`/reviews/${review.id}/edit/`);
-  };
-
   return (
     <div>
       <h2>Review List</h2>
@@ -92,7 +88,7 @@ function PageReviewList() {
             key={review.id}
             review={review}
             handleDelete={() => deleteReview(review)}
-            handleEdit={() => editReview(review)}
+            handleEdit={() => navigate(`/reviews/${review.id}/edit/`)}
           />
         ))}
       </div>

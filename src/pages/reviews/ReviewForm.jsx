@@ -3,16 +3,19 @@ import { useNavigate } from 'react-router-dom';
 import useFieldValues from 'components/hooks/useFieldValues';
 import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
+import ReviewForm from 'components/ReviewForm';
 
 const INITIAL_STATE = { content: '', score: 0 };
 
-function ReviewForm() {
+function PageReviewForm() {
+  // 상탯값 정의, 훅 호출
   const navigate = useNavigate();
   const { reviewId } = useParams();
   const [error, setError] = useState(null);
   const [fieldValues, handleChange, emptyFieldValues, setFieldValues] =
     useFieldValues(INITIAL_STATE);
 
+  // 다양한 함수를 정의
   useEffect(() => {
     if (reviewId) {
       const url = `http://localhost:8000/shop/api/reviews/${reviewId}/`;
@@ -20,120 +23,49 @@ function ReviewForm() {
         .then(({ data }) => setFieldValues(data))
         .catch((error) => setError(error));
     } else {
-      setFieldValues(null);
+      setFieldValues(INITIAL_STATE);
     }
   }, [reviewId]);
 
-  const submitReview = (e) => {
+  const submitReview = async (e) => {
     e.preventDefault();
 
     const newUrl = 'http://127.0.0.1:8000/shop/api/reviews/';
     const editUrl = `http://localhost:8000/shop/api/reviews/${reviewId}/`;
 
     if (!reviewId) {
-      Axios.post(newUrl, fieldValues)
-        .then(() => {
-          navigate('/reviews/');
-        })
-        .catch((error) => {
-          setError(error);
-        })
-        .finally(() => {
-          emptyFieldValues();
-        });
+      try {
+        const response = await Axios.post(newUrl, fieldValues);
+        navigate('/reviews/');
+      } catch (error) {
+        setError(error);
+      } finally {
+        emptyFieldValues();
+      }
     } else {
-      Axios.put(editUrl, fieldValues)
-        .then(() => {
-          navigate('/reviews/');
-        })
-        .catch((error) => {
-          setError(error);
-        })
-        .finally(() => {
-          emptyFieldValues();
-        });
+      try {
+        const response = await Axios.put(editUrl, fieldValues);
+        navigate('/reviews/');
+      } catch (error) {
+        setError(error);
+      } finally {
+        emptyFieldValues();
+      }
     }
   };
 
+  // 표현 by jsx -> 별도의 컴포넌트로 구분
   return (
     <div>
       <h2>Review Form</h2>
 
-      <div className="block p-6 rounded-lg shadow-lg bg-white max-w-md">
-        <form>
-          <div className="mb-6">
-            <label className="block text-gray-700 text-sm font-bold mb-2">
-              평점
-            </label>
-            <select
-              name="score"
-              className="shadow appearance-none rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
-              onChange={handleChange}
-              value={fieldValues.score}
-            >
-              <option>0</option>
-              <option>1</option>
-              <option>2</option>
-              <option>3</option>
-              <option>4</option>
-              <option>5</option>
-            </select>
-          </div>
-          <div className="form-group mb-6">
-            <textarea
-              onChange={handleChange}
-              value={fieldValues.content}
-              name="content"
-              className="
-        form-control
-        block
-        w-full
-        px-3
-        py-1.5
-        text-base
-        font-normal
-        text-gray-700
-        bg-white bg-clip-padding
-        border border-solid border-gray-300
-        rounded
-        transition
-        ease-in-out
-        m-0
-        focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none
-      "
-              id="exampleFormControlTextarea13"
-              rows="3"
-              placeholder="Message"
-            ></textarea>
-          </div>
-
-          <button
-            onClick={submitReview}
-            className="
-      w-full
-      px-6
-      py-2.5
-      bg-blue-600
-      text-white
-      font-medium
-      text-xs
-      leading-tight
-      uppercase
-      rounded
-      shadow-md
-      hover:bg-blue-700 hover:shadow-lg
-      focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0
-      active:bg-blue-800 active:shadow-lg
-      transition
-      duration-150
-      ease-in-out"
-          >
-            Save
-          </button>
-        </form>
-      </div>
+      <ReviewForm
+        handleChange={handleChange}
+        fieldValues={fieldValues}
+        submitReview={submitReview}
+      />
     </div>
   );
 }
 
-export default ReviewForm;
+export default PageReviewForm;
