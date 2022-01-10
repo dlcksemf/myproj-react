@@ -2,25 +2,25 @@ import Axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import useFieldValues from 'components/hooks/useFieldValues';
 import { useParams } from 'react-router-dom';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 const INITIAL_STATE = { content: '', score: 0 };
 
 function ReviewForm() {
   const navigate = useNavigate();
+  const { reviewId } = useParams();
+  const [error, setError] = useState(null);
   const [fieldValues, handleChange, emptyFieldValues, setFieldValues] =
     useFieldValues(INITIAL_STATE);
-  const { reviewId } = useParams();
 
   useEffect(() => {
     if (reviewId) {
-      Axios.get(`http://localhost:8000/shop/api/reviews/${reviewId}/`)
-        .then(({ data }) => {
-          setFieldValues(data);
-        })
-        .catch((error) => {
-          console.error(error);
-        });
+      const url = `http://localhost:8000/shop/api/reviews/${reviewId}/`;
+      Axios.get(url)
+        .then(({ data }) => setFieldValues(data))
+        .catch((error) => setError(error));
+    } else {
+      setFieldValues(null);
     }
   }, [reviewId]);
 
@@ -36,7 +36,7 @@ function ReviewForm() {
           navigate('/reviews/');
         })
         .catch((error) => {
-          console.error(error);
+          setError(error);
         })
         .finally(() => {
           emptyFieldValues();
@@ -47,7 +47,7 @@ function ReviewForm() {
           navigate('/reviews/');
         })
         .catch((error) => {
-          console.error(error);
+          setError(error);
         })
         .finally(() => {
           emptyFieldValues();
