@@ -1,4 +1,4 @@
-function ReviewForm({ handleChange, fieldValues, submitReview }) {
+function ReviewForm({ handleChange, fieldValues, submitReview, loading }) {
   const handleClickedSubmitButton = (e) => {
     if (submitReview) {
       submitReview(e);
@@ -19,6 +19,7 @@ function ReviewForm({ handleChange, fieldValues, submitReview }) {
               name="score"
               className="shadow appearance-none rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
               onChange={handleChange}
+              disabled={loading}
               value={fieldValues.score}
             >
               <option>0</option>
@@ -32,6 +33,7 @@ function ReviewForm({ handleChange, fieldValues, submitReview }) {
           <div className="form-group mb-6">
             <textarea
               onChange={handleChange}
+              disabled={loading}
               value={fieldValues.content}
               name="content"
               className="
@@ -59,6 +61,7 @@ function ReviewForm({ handleChange, fieldValues, submitReview }) {
 
           <button
             onClick={handleClickedSubmitButton}
+            disabled={loading}
             className="
       w-full
       px-6
@@ -78,6 +81,7 @@ function ReviewForm({ handleChange, fieldValues, submitReview }) {
       duration-150
       ease-in-out"
           >
+            {loading && '로딩 아이콘'}
             Save
           </button>
         </form>
