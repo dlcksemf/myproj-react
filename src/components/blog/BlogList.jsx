@@ -12,18 +12,14 @@ function BlogList({ post, navigate, handleDelete }) {
   // TODO : image / style로 content 말줄임
   return (
     <div>
-      <section className="pt-20 lg:pt-[120px] pb-10 lg:pb-20 bg-[#F3F4F6]">
+      <section className="pt-5 pb-2 bg-[#F3F4F6]">
         <div className="container">
-          <div className="flex flex-wrap -mx-4">
+          <div className="flex flex-wrap mx-4">
             <div className="w-full px-4">
               <div className="bg-white rounded-lg overflow-hidden mb-10">
-                {/* <img
-                  src="https://cdn.tailgrids.com/1.0/assets/images/cards/card-01/image-02.jpg"
-                  alt="image"
-                  className="w-full"
-                /> */}
                 <div className="p-8 sm:p-9 md:p-7 xl:p-9 text-center">
                   <h3
+                    className="cursor-pointer"
                     onClick={() => {
                       navigate(`/blog/${post.id}/`);
                     }}
@@ -46,7 +42,7 @@ function BlogList({ post, navigate, handleDelete }) {
                     </div>
                   </h3>
                   <p className="text-base text-body-color leading-relaxed mb-7">
-                    {content}
+                    {content.length > 50 ? content.substring(0, 50) + "..." : content}
                   </p>
 
                   <div
@@ -60,6 +56,7 @@ function BlogList({ post, navigate, handleDelete }) {
                      font-medium
                      hover:border-primary hover:bg-primary hover:text-white
                      transition
+                     mx-1
                      "
                     onClick={() => {
                       navigate(`/blog/${post.id}/edit/`);
@@ -79,6 +76,7 @@ function BlogList({ post, navigate, handleDelete }) {
                      font-medium
                      hover:border-primary hover:bg-primary hover:text-white
                      transition
+                     mx-1
                      "
                   >
                     DELETE
