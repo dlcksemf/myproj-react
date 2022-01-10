@@ -12,48 +12,47 @@ function PageReviewForm() {
   const navigate = useNavigate();
   const { reviewId } = useParams();
   const [error, setError] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [fieldValues, handleChange, emptyFieldValues, setFieldValues] =
+  const [loading, setLoading] = useState(false);
+  const [fieldValues, handleFieldChange, emptyFieldValues, setFieldValues] =
     useFieldValues(INITIAL_STATE);
 
   // 훅에 지정하는 함수는 async일 수 없다
   useEffect(() => {
-    const fn = async () => {
+    const fetchReview = async () => {
       const url = `http://localhost:8000/shop/api/reviews/${reviewId}/`;
       setLoading(true);
       setError(null);
 
-      if (reviewId) {
-        try {
-          const response = await Axios.get(url);
-          setFieldValues(response.data);
-        } catch (error) {
-          setError(error);
-        }
-      } else {
-        setFieldValues(INITIAL_STATE);
+      try {
+        const response = await Axios.get(url);
+        setFieldValues(response.data);
+      } catch (error) {
+        setError(error);
       }
 
       setLoading(false);
       setError(null);
     };
-    fn();
-  }, [reviewId, setFieldValues]);
+    if (reviewId) {
+      fetchReview();
+    } else {
+      emptyFieldValues();
+    }
+  }, [reviewId, setFieldValues, emptyFieldValues]);
 
   const submitReview = async (e) => {
     e.preventDefault();
     setLoading(true);
     setError(null);
 
-    const newUrl = 'http://127.0.0.1:8000/shop/api/reviews/';
+    const url = !reviewId
+      ? 'http://127.0.0.1:8000/shop/api/reviews/'
+      : `http://localhost:8000/shop/api/reviews/${reviewId}/`;
 
     try {
-      const response = !reviewId
-        ? await Axios.post(newUrl, fieldValues)
-        : await Axios.put(
-            `http://localhost:8000/shop/api/reviews/${reviewId}/`,
-            fieldValues,
-          );
+      !reviewId
+        ? await Axios.post(url, fieldValues)
+        : await Axios.put(url, fieldValues);
       navigate('/reviews/');
     } catch (error) {
       setError(error);
@@ -69,10 +68,10 @@ function PageReviewForm() {
       <h2>Review Form</h2>
 
       <ReviewForm
-        handleChange={handleChange}
+        handleChange={handleFieldChange}
         fieldValues={fieldValues}
         submitReview={submitReview}
-        lodaing={loading}
+        loading={loading}
       />
     </div>
   );

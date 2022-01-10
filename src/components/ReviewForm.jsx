@@ -16,11 +16,11 @@ function ReviewForm({ handleChange, fieldValues, submitReview, loading }) {
               평점
             </label>
             <select
-              name="score"
-              className="shadow appearance-none rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
               onChange={handleChange}
               disabled={loading}
               value={fieldValues.score}
+              name="score"
+              className="shadow appearance-none rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
             >
               <option>0</option>
               <option>1</option>
@@ -81,7 +81,7 @@ function ReviewForm({ handleChange, fieldValues, submitReview, loading }) {
       duration-150
       ease-in-out"
           >
-            {loading && '로딩 아이콘'}
+            {loading && '로딩'}
             Save
           </button>
         </form>
