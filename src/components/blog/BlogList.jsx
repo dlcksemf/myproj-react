@@ -20,7 +20,6 @@ function BlogList({ post, navigate }) {
                       navigate(`/blog/${post.id}/`);
                     }}
                   >
-                    {/* navigate로 detail 페이지로 */}
                     <div
                       className="
                         font-semibold
@@ -55,6 +54,9 @@ function BlogList({ post, navigate }) {
                      hover:border-primary hover:bg-primary hover:text-white
                      transition
                      "
+                    onClick={() => {
+                      navigate(`/blog/${post.id}/edit/`);
+                    }}
                   >
                     EDIT
                   </div>
