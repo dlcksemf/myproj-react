@@ -22,7 +22,7 @@ function ReviewForm() {
           console.error(error);
         });
     }
-  }, []);
+  }, [reviewId]);
 
   const submitReview = (e) => {
     e.preventDefault();
