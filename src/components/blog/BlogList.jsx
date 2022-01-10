@@ -1,4 +1,4 @@
-function BlogList({ post }) {
+function BlogList({ post, navigate }) {
   const { title, content } = post;
 
   // TODO : image / button 기능 구현 / style로 content 말줄임
@@ -15,7 +15,11 @@ function BlogList({ post }) {
                   className="w-full"
                 /> */}
                 <div className="p-8 sm:p-9 md:p-7 xl:p-9 text-center">
-                  <h3>
+                  <h3
+                    onClick={() => {
+                      navigate(`/blog/${post.id}/`);
+                    }}
+                  >
                     {/* navigate로 detail 페이지로 */}
                     <div
                       className="
