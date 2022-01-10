@@ -1,5 +1,13 @@
-function BlogList({ post, navigate }) {
+function BlogList({ post, navigate, handleDelete }) {
   const { title, content } = post;
+
+  const handleDeleteButtonClicked = () => {
+    if (handleDelete) {
+      handleDelete();
+    } else {
+      console.error('handleDelete 함수 인자 없음');
+    }
+  };
 
   // TODO : image / button 기능 구현 / style로 content 말줄임
   return (
@@ -61,6 +69,7 @@ function BlogList({ post, navigate }) {
                     EDIT
                   </div>
                   <div
+                    onClick={handleDeleteButtonClicked}
                     className="
                      inline-block
                      py-2

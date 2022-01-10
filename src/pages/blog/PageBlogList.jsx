@@ -30,6 +30,22 @@ function PageBlog() {
       });
   };
 
+  const deletePost = (deletingPost) => {
+    const { id: deletedPostId } = deletingPost;
+
+    const url = `http://localhost:8000/blog/api/posts/${deletedPostId}`;
+
+    Axios.delete(url)
+      .then(() => {
+        setPostList((prevPostList) => {
+          return prevPostList.filter((post) => deletedPostId !== post.id);
+        });
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
+
   return (
     <div>
       <button
@@ -59,7 +75,14 @@ function PageBlog() {
       </button>
 
       {postList.map((post) => {
-        return <BlogList post={post} navigate={navigate} key={post.id} />;
+        return (
+          <BlogList
+            post={post}
+            navigate={navigate}
+            key={post.id}
+            handleDelete={() => deletePost(post)}
+          />
+        );
       })}
     </div>
   );
