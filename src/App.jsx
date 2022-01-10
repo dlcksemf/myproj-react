@@ -17,6 +17,7 @@ function App() {
         <Route path="/accounts/profile/" element={<Profile />} />
         <Route path="/reviews/" element={<PageReviewList />} />
         <Route path="/reviews/new/" element={<ReviewForm />} />
+        <Route path="/reviews/:reviewId/edit/" element={<ReviewForm />} />
         <Route path="/examples/components/" element={<Components />} />
         <Route path="*" element={<div>404</div>} />
       </Routes>

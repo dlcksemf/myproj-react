@@ -7,19 +7,29 @@ function Review({ review, handleEdit, handleDelete }) {
   const { content, score } = review;
 
   // TODO: handleEdit / handleDelete 호출에 대한 방어적 코드를 작성해주세요.
+  const handleClickedDeleteButton = () => {
+    if (!handleDelete) {
+      console.warn('[Review] handleDelete 속성값이 지정되지 않았습니다.');
+    } else handleDelete();
+  };
+
+  const handleClickedEditButton = () => {
+    if (!handleEdit) {
+      console.warn('[Review] handleChange 속성값이 지정되지 않았습니다.');
+    } else handleEdit();
+  };
 
   return (
     <div className="bg-yellow-100 border border-yellow-400 my-1 p-1">
       <div>
-        {' '}
         <span
-          onClick={() => handleEdit()}
+          onClick={handleClickedEditButton}
           className="mr-1 hover:text-blue-400 cursor-pointer"
         >
           수정
         </span>
         <span
-          onClick={() => handleDelete()}
+          onClick={handleClickedDeleteButton}
           className="hover:text-red-400 cursor-pointer"
         >
           삭제

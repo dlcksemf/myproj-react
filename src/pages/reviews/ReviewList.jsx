@@ -57,8 +57,6 @@ function PageReviewList() {
       .finally(() => {
         setLoading(false);
       });
-
-    console.log('Deleting', deletingReview);
   };
 
   return (
@@ -90,6 +88,7 @@ function PageReviewList() {
             key={review.id}
             review={review}
             handleDelete={() => deleteReview(review)}
+            handleEdit={() => navigate(`/reviews/${review.id}/edit/`)}
           />
         ))}
       </div>
