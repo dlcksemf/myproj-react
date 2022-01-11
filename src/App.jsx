@@ -11,6 +11,8 @@ import PageBlogDetail from 'pages/blog/PageBlogDetail';
 import PageBlogForm from 'pages/blog/PageBlogForm';
 import Clock from 'pages/examples/Clock';
 import useWindowWidth from 'components/hooks/useWindowWidth';
+import CssModule from 'pages/examples/CssModule';
+import CssInJs from 'pages/examples/CssInJs';
 
 function App() {
   const windowWidth = useWindowWidth();
@@ -30,6 +32,8 @@ function App() {
           <Route path="/reviews/new/" element={<ReviewForm />} />
           <Route path="/reviews/:reviewId/edit/" element={<ReviewForm />} />
           <Route path="/examples/components/" element={<Components />} />
+          <Route path="/examples/css-module/" element={<CssModule />} />
+          <Route path="/examples/css-in-js/" element={<CssInJs />} />
         </Routes>
         <hr />
         윈도우 가로크기 : {windowWidth}px

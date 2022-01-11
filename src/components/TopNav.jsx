@@ -22,6 +22,12 @@ function TopNav() {
         <li>
           <MyLink to="/examples/components/">컴포넌트 예시</MyLink>
         </li>
+        <li>
+          <MyLink to="/examples/css-module/">CSS Module</MyLink>
+        </li>
+        <li>
+          <MyLink to="/examples/css-in-js/">CSS In Js</MyLink>
+        </li>
       </ul>
     </div>
   );
