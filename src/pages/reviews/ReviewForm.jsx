@@ -1,9 +1,9 @@
-import Axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import useFieldValues from 'components/hooks/useFieldValues';
 import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import ReviewForm from 'components/ReviewForm';
+import { axiosInstance } from 'api/base';
 
 const INITIAL_STATE = { content: '', score: 0 };
 
@@ -19,12 +19,12 @@ function PageReviewForm() {
   // 훅에 지정하는 함수는 async일 수 없다
   useEffect(() => {
     const fetchReview = async () => {
-      const url = `http://localhost:8000/shop/api/reviews/${reviewId}/`;
+      const url = `/shop/api/reviews/${reviewId}/`;
       setLoading(true);
       setError(null);
 
       try {
-        const response = await Axios.get(url);
+        const response = await axiosInstance.get(url);
         setFieldValues(response.data);
       } catch (error) {
         setError(error);
@@ -46,13 +46,13 @@ function PageReviewForm() {
     setError(null);
 
     const url = !reviewId
-      ? 'http://127.0.0.1:8000/shop/api/reviews/'
-      : `http://localhost:8000/shop/api/reviews/${reviewId}/`;
+      ? `/shop/api/reviews/`
+      : `/shop/api/reviews/${reviewId}/`;
 
     try {
       !reviewId
-        ? await Axios.post(url, fieldValues)
-        : await Axios.put(url, fieldValues);
+        ? await axiosInstance.post(url, fieldValues)
+        : await axiosInstance.put(url, fieldValues);
       navigate('/reviews/');
     } catch (error) {
       setError(error);

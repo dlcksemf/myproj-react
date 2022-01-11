@@ -1,7 +1,7 @@
+import { axiosInstance } from 'api/base';
 import BlogDetail from 'components/blog/BlogDetail';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import Axios from 'axios';
 
 function PageBlogDetail() {
   const { postId } = useParams();
@@ -11,9 +11,10 @@ function PageBlogDetail() {
   // error 구현
   useEffect(() => {
     setLoading(true);
-    const url = `http://localhost:8000/blog/api/posts/${postId}/`;
+    const url = `/blog/api/posts/${postId}/`;
 
-    Axios.get(url)
+    axiosInstance
+      .get(url)
       .then(({ data }) => {
         setPost(data);
       })

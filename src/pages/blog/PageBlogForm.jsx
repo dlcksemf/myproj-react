@@ -1,8 +1,8 @@
 import BlogForm from 'components/blog/BlogForm';
 import useFieldValues from 'components/hooks/useFieldValues';
-import Axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useEffect } from 'react';
+import { axiosInstance } from 'api/base';
 
 function PageBlogForm() {
   const navigate = useNavigate();
@@ -11,10 +11,11 @@ function PageBlogForm() {
     useFieldValues({ content: '', title: '' });
 
   useEffect(() => {
-    const url = `http://localhost:8000/blog/api/posts/${postId}/`;
+    const url = `/blog/api/posts/${postId}/`;
 
     const getData = () => {
-      Axios.get(url)
+      axiosInstance
+        .get(url)
         .then(({ data }) => {
           setFieldValues(data);
         })
@@ -29,12 +30,11 @@ function PageBlogForm() {
   const submitReview = (e) => {
     e.preventDefault();
 
-    const url = !postId
-      ? 'http://localhost:8000/blog/api/posts/'
-      : `http://localhost:8000/blog/api/posts/${postId}/`;
+    const url = !postId ? `/blog/api/posts/` : `/blog/api/posts/${postId}/`;
 
     if (!postId) {
-      Axios.post(url, fieldValues)
+      axiosInstance
+        .post(url, fieldValues)
         .then(() => {
           navigate('/blog/');
         })
@@ -45,7 +45,8 @@ function PageBlogForm() {
           emptyFieldValues();
         });
     } else {
-      Axios.patch(url, fieldValues)
+      axiosInstance
+        .patch(url, fieldValues)
         .then(() => {
           navigate('/blog/');
         })

@@ -1,8 +1,8 @@
 import BlogList from 'components/blog/BlogList';
-import Axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import BlogDeleteConfirm from 'components/blog/BlogDeleteConfirm';
+import { axiosInstance } from 'api/base';
 
 function PageBlog() {
   const [postList, setPostList] = useState([]);
@@ -18,9 +18,10 @@ function PageBlog() {
   const refetch = () => {
     setError(null);
     setLoading(true);
-    const url = 'http://localhost:8000/blog/api/posts/';
+    const url = `/blog/api/posts/`;
 
-    Axios.get(url)
+    axiosInstance
+      .get(url)
       .then(({ data }) => {
         setPostList(data);
       })
@@ -39,9 +40,10 @@ function PageBlog() {
   const deletePost = (deletingPost) => {
     const { id: deletedPostId } = deletingPost;
 
-    const url = `http://localhost:8000/blog/api/posts/${deletedPostId}`;
+    const url = `/blog/api/posts/${deletedPostId}`;
 
-    Axios.delete(url)
+    axiosInstance
+      .delete(url)
       .then(() => {
         setPostList((prevPostList) => {
           return prevPostList.filter((post) => deletedPostId !== post.id);
