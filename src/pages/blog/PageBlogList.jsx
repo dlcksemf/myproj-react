@@ -99,6 +99,7 @@ function PageBlog() {
             />
             {showDeleteConfirm && (
               <BlogDeleteConfirm
+                key={post.id}
                 deletePost={() => deletePost(post)}
                 handleCancleButton={cancleButtonClicked}
               />
