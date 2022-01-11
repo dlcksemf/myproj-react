@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
 import './Clock.css';
 
+const WEEKDAYS = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
+
 function Clock() {
   const [date, setDate] = useState(new Date());
 
@@ -23,8 +25,10 @@ function Clock() {
       <h2>Clock</h2>
 
       <div class="clock">
-        <p class="date">{date.toISOString().slice(0, 10)}</p>
-        <p class="time">{date.toISOString().slice(11, 19)}</p>
+        <p class="date">
+          {date.toLocaleDateString()} {WEEKDAYS[date.getDay()]}
+        </p>
+        <p class="time">{date.toLocaleTimeString('en-us')}</p>
         <p class="text">Powered by React.js</p>
       </div>
     </div>
