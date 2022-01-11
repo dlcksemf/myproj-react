@@ -3,35 +3,24 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import BlogDeleteConfirm from 'components/blog/BlogDeleteConfirm';
 import { axiosInstance } from 'api/base';
+import useAxios from 'axios-hooks';
+import { API_HOST } from 'Constants';
 
 function PageBlog() {
-  const [postList, setPostList] = useState([]);
-  const [error, setError] = useState(null);
-  const [loading, setLoading] = useState(false);
+  const [postList, setPostList] = useState([{ content: '', title: '' }]);
+  // const [error, setError] = useState(null);
+  // const [loading, setLoading] = useState(false);
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
   const navigate = useNavigate();
 
+  const [{ data, loading, error }, reFetch] = useAxios(
+    `${API_HOST}/blog/api/posts/`,
+  );
+
   useEffect(() => {
-    refetch();
+    reFetch();
+    setPostList(data || [{ content: '', title: '' }]);
   }, []);
-
-  const refetch = () => {
-    setError(null);
-    setLoading(true);
-    const url = `/blog/api/posts/`;
-
-    axiosInstance
-      .get(url)
-      .then(({ data }) => {
-        setPostList(data);
-      })
-      .catch((error) => {
-        setError(error);
-      })
-      .finally(() => {
-        setLoading(false);
-      });
-  };
 
   const deleteButtonClicked = () => {
     setShowDeleteConfirm(true);
