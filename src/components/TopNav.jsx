@@ -16,24 +16,6 @@ function TopNav() {
         <li>
           <MyLink to="/blog/">블로그</MyLink>
         </li>
-        <li>
-          <MyLink to="/examples/clock">시계</MyLink>
-        </li>
-        <li>
-          <MyLink to="/examples/components/">컴포넌트 예시</MyLink>
-        </li>
-        <li>
-          <MyLink to="/examples/css-module/">CSS Module</MyLink>
-        </li>
-        <li>
-          <MyLink to="/examples/css-in-js/">CSS In Js</MyLink>
-        </li>
-        <li>
-          <MyLink to="/examples/context-api/">Context Api</MyLink>
-        </li>
-        <li>
-          <MyLink to="/examples/context-api-2/">Context Api 2</MyLink>
-        </li>
       </ul>
     </div>
   );

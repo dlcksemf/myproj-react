@@ -42,7 +42,9 @@ function BlogList({ post, navigate, handleDelete }) {
                     </div>
                   </h3>
                   <p className="text-base text-body-color leading-relaxed mb-7">
-                    {content.length > 50 ? content.substring(0, 50) + "..." : content}
+                    {content.length > 50
+                      ? content.substring(0, 50) + '...'
+                      : content}
                   </p>
 
                   <div
@@ -57,6 +59,7 @@ function BlogList({ post, navigate, handleDelete }) {
                      hover:border-primary hover:bg-primary hover:text-white
                      transition
                      mx-1
+                     cursor-pointer
                      "
                     onClick={() => {
                       navigate(`/blog/${post.id}/edit/`);
@@ -77,6 +80,7 @@ function BlogList({ post, navigate, handleDelete }) {
                      hover:border-primary hover:bg-primary hover:text-white
                      transition
                      mx-1
+                     cursor-pointer
                      "
                   >
                     DELETE
