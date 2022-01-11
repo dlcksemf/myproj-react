@@ -2,11 +2,13 @@ import BlogList from 'components/blog/BlogList';
 import Axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import BlogDeleteConfirm from 'components/blog/BlogDeleteConfirm';
 
 function PageBlog() {
   const [postList, setPostList] = useState([]);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -30,6 +32,10 @@ function PageBlog() {
       });
   };
 
+  const deleteButtonClicked = () => {
+    setShowDeleteConfirm(true);
+  };
+
   const deletePost = (deletingPost) => {
     const { id: deletedPostId } = deletingPost;
 
@@ -44,6 +50,12 @@ function PageBlog() {
       .catch((error) => {
         console.error(error);
       });
+
+    setShowDeleteConfirm(false);
+  };
+
+  const cancleButtonClicked = () => {
+    setShowDeleteConfirm(false);
   };
 
   return (
@@ -76,12 +88,20 @@ function PageBlog() {
 
       {postList.map((post) => {
         return (
-          <BlogList
-            post={post}
-            navigate={navigate}
-            key={post.id}
-            handleDelete={() => deletePost(post)}
-          />
+          <>
+            <BlogList
+              post={post}
+              navigate={navigate}
+              key={post.id}
+              handleDelete={() => deleteButtonClicked()}
+            />
+            {showDeleteConfirm && (
+              <BlogDeleteConfirm
+                deletePost={() => deletePost(post)}
+                handleCancleButton={cancleButtonClicked}
+              />
+            )}
+          </>
         );
       })}
     </div>
