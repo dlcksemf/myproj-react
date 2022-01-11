@@ -1,12 +1,13 @@
 import { axiosInstance } from 'api/base';
 import BlogDetail from 'components/blog/BlogDetail';
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 function PageBlogDetail() {
   const { postId } = useParams();
   const [post, setPost] = useState({ title: '', content: '' });
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
   // error 구현
   useEffect(() => {
@@ -28,7 +29,13 @@ function PageBlogDetail() {
 
   return (
     <div>
-      <BlogDetail post={post} loading={loading} />
+      <BlogDetail
+        post={post}
+        loading={loading}
+        handleMenu={() => {
+          navigate('/blog/');
+        }}
+      />
     </div>
   );
 }

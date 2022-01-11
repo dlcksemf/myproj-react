@@ -1,4 +1,6 @@
 // loading 추가
+// https://tailwindcomponents.com/component/tailwind-login-form
+
 function BlogForm({ submitReview, handleChange, fieldValues }) {
   const handleClickedSubmitButton = (e) => {
     if (submitReview) {
@@ -30,6 +32,7 @@ function BlogForm({ submitReview, handleChange, fieldValues }) {
               value={fieldValues.content}
               name="content"
               className="
+              h-96
             form-control
             block
             w-full

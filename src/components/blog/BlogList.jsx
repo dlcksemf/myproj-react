@@ -9,7 +9,7 @@ function BlogList({ post, navigate, handleDelete }) {
     }
   };
 
-  // TODO : image / style로 content 말줄임
+  // https://tailwindcomponents.com/component/tailwind-css-cards
   return (
     <div>
       <section className="pt-5 pb-2 bg-[#F3F4F6]">
