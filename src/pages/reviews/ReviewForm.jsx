@@ -15,6 +15,7 @@ function PageReviewForm() {
   const [loading, setLoading] = useState(false);
   const [fieldValues, handleFieldChange, emptyFieldValues, setFieldValues] =
     useFieldValues(INITIAL_STATE);
+  const [errorMessages, setErrorMessages] = useState({});
 
   // 훅에 지정하는 함수는 async일 수 없다
   useEffect(() => {
@@ -44,6 +45,7 @@ function PageReviewForm() {
     e.preventDefault();
     setLoading(true);
     setError(null);
+    setErrorMessages({});
 
     const url = !reviewId
       ? `/shop/api/reviews/`
@@ -55,9 +57,9 @@ function PageReviewForm() {
         : await axiosInstance.put(url, fieldValues);
       navigate('/reviews/');
     } catch (error) {
-      setError(error);
+      setErrorMessages(error.response.data);
     }
-    setError(null);
+
     setLoading(false);
     emptyFieldValues();
   };
@@ -68,6 +70,7 @@ function PageReviewForm() {
       <h2>Review Form</h2>
 
       <ReviewForm
+        errorMessages={errorMessages}
         handleChange={handleFieldChange}
         fieldValues={fieldValues}
         submitReview={submitReview}
