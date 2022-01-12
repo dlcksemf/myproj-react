@@ -1,6 +1,7 @@
 // https://tailwindcomponents.com/component/tailwind-css-cards
 
 import { useApiAxios } from 'api/base';
+import LoadingIndicator from 'components/LoadingIndicator';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -15,9 +16,13 @@ function BlogList() {
 
   return (
     <div>
+      {loading && <LoadingIndicator />}
+      {error &&
+        `error ... (${error.response.status} ${error.response.statusText})`}
+
       {postList &&
         postList.map(({ title, content, id }) => (
-          <section className="pt-5 pb-2 bg-[#F3F4F6]">
+          <section className="pt-5 pb-2 bg-[#F3F4F6]" key={id}>
             <div className="container">
               <div className="flex flex-wrap mx-4">
                 <div className="w-full px-4">

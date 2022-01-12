@@ -3,6 +3,7 @@
 
 import useFieldValues from 'components/hooks/useFieldValues';
 import { useApiAxios } from 'api/base';
+import LoadingIndicator from 'components/LoadingIndicator';
 
 const INIT_FIELD_VALUES = { title: '', content: '' };
 
@@ -41,6 +42,18 @@ function BlogForm({ postId, handleDidSave }) {
 
   return (
     <div>
+      {saveLoading && <LoadingIndicator>Saving ...</LoadingIndicator>}
+      {saveError &&
+        `error ... (${saveError.response.status} ${saveError.response.statusText})`}
+
+      {getLoading && <LoadingIndicator />}
+      {getError && (
+        <h2>
+          `error ... (${getError.response.status} $
+          {getError.response.statusText})`
+        </h2>
+      )}
+
       <div className="block p-6 rounded-lg shadow-lg bg-white max-w-md">
         <form onSubmit={savePost}>
           <div className="mb-6">
@@ -54,6 +67,9 @@ function BlogForm({ postId, handleDidSave }) {
               className="shadow appearance-none rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
               type="text"
             ></input>
+            {saveErrorMessages.title?.map((message) => (
+              <p className="text-red-400">{message}</p>
+            ))}
           </div>
           <div className="form-group mb-6">
             <textarea
@@ -82,6 +98,9 @@ function BlogForm({ postId, handleDidSave }) {
               rows="3"
               placeholder="Message"
             ></textarea>
+            {saveErrorMessages.content?.map((message) => (
+              <p className="text-red-400">{message}</p>
+            ))}
           </div>
 
           <button

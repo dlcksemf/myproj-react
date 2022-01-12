@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { useApiAxios } from 'api/base';
 import BlogDeleteConfirm from './BlogDeleteConfirm';
+import LoadingIndicator from 'components/LoadingIndicator';
 
 function BlogDetail({ postId }) {
   const [confirmDelete, setConfirmDelete] = useState(false);
@@ -40,6 +41,14 @@ function BlogDetail({ postId }) {
 
   return (
     <>
+      {loading && <LoadingIndicator />}
+      {error &&
+        `error ... (${error.response.status} ${error.response.statusText})`}
+
+      {deleteLoading && <LoadingIndicator>deleting ...</LoadingIndicator>}
+      {deleteError &&
+        `error ... (${deleteError.response.status} ${deleteError.response.statusText})`}
+
       {confirmDelete && (
         <BlogDeleteConfirm
           deletePost={deletePost}
