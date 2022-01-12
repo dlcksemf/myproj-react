@@ -15,6 +15,8 @@ import CssModule from 'pages/examples/CssModule';
 import CssInJs from 'pages/examples/CssInJs';
 import ContextApiSample from 'pages/examples/ContextApiSample';
 import ContextApiSample2 from 'pages/examples/ContextApiSample2';
+import PageNewsIndex from 'pages/news/PageNewsIndex';
+import PageNewsArticleDetail from 'pages/news/PageNewsArticleDetail';
 
 function App() {
   const windowWidth = useWindowWidth();
@@ -23,16 +25,23 @@ function App() {
       <div className="app">
         <TopNav />
         <Routes>
-          <Route path="/" element={<Navigate to="/blog/" />} />
+          <Route path="/" element={<Navigate to="/news/" />} />
+
           <Route path="/accounts/login/" element={<Login />} />
           <Route path="/accounts/profile/" element={<Profile />} />
+
           <Route path="/blog/" element={<PageBlogList />} />
           <Route path="/blog/:postId/" element={<PageBlogDetail />} />
           <Route path="/blog/new/" element={<PageBlogForm />} />
           <Route path="/blog/:postId/edit/" element={<PageBlogForm />} />
+
+          <Route path="/news/" element={<PageNewsIndex />} />
+          <Route path="/news/:articleId/" element={<PageNewsArticleDetail />} />
+
           <Route path="/reviews/" element={<PageReviewList />} />
           <Route path="/reviews/new/" element={<ReviewForm />} />
           <Route path="/reviews/:reviewId/edit/" element={<ReviewForm />} />
+
           <Route path="/examples/components/" element={<Components />} />
           <Route path="/examples/css-module/" element={<CssModule />} />
           <Route path="/examples/css-in-js/" element={<CssInJs />} />

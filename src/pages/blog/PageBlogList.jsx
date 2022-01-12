@@ -19,8 +19,11 @@ function PageBlog() {
 
   useEffect(() => {
     reFetch();
-    setPostList(data || [{ content: '', title: '' }]);
   }, []);
+
+  useEffect(() => {
+    setPostList(data || [{ content: '', title: '' }]);
+  }, [data]);
 
   const deleteButtonClicked = () => {
     setShowDeleteConfirm(true);

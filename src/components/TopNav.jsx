@@ -11,10 +11,10 @@ function TopNav() {
           <MyLink to="/accounts/profile/">프로필</MyLink>
         </li>
         <li>
-          <MyLink to="/reviews/">리뷰</MyLink>
+          <MyLink to="/blog/">블로그</MyLink>
         </li>
         <li>
-          <MyLink to="/blog/">블로그</MyLink>
+          <MyLink to="/news/">뉴스</MyLink>
         </li>
       </ul>
     </div>
