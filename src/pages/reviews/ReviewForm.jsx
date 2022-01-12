@@ -13,7 +13,7 @@ function PageReviewForm() {
   const { reviewId } = useParams();
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
-  const [fieldValues, handleFieldChange, emptyFieldValues, setFieldValues] =
+  const { fieldValues, handleFieldChange, emptyFieldValues, setFieldValues } =
     useFieldValues(INITIAL_STATE);
   const [errorMessages, setErrorMessages] = useState({});
 

@@ -7,7 +7,7 @@ import { axiosInstance } from 'api/base';
 function PageBlogForm() {
   const navigate = useNavigate();
   const { postId } = useParams();
-  const [fieldValues, handleFieldChange, emptyFieldValues, setFieldValues] =
+  const { fieldValues, handleFieldChange, emptyFieldValues, setFieldValues } =
     useFieldValues({ content: '', title: '' });
 
   useEffect(() => {
