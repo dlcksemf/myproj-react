@@ -3,12 +3,9 @@
 import { useApiAxios } from 'api/base';
 import ErrorWarning from 'components/ErrorWarning';
 import LoadingIndicator from 'components/LoadingIndicator';
-import { createContext, useEffect, useReducer } from 'react';
+import { useEffect, useReducer } from 'react';
 import { useNavigate } from 'react-router-dom';
-
-import { ToastContainer, toast } from 'react-toastify';
-
-const MessageContext = createContext();
+import { toast, ToastContainer } from 'react-toastify';
 
 function reducer(prevState, action) {
   const { type } = action;
@@ -30,43 +27,20 @@ function BlogList() {
     refetch();
   }, []);
 
-  if (showToast)
-    toast('🦄 Wow so easy!', {
-      position: 'bottom-right',
-      autoClose: 5000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-    });
-
   return (
     <div>
-      <ToastContainer
-        position="bottom-right"
-        autoClose={5000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-      />
+      <div>
+        {loading && <LoadingIndicator />}
 
-      {loading && <LoadingIndicator />}
+        {error && (
+          <ErrorWarning
+            title="Error during Load"
+            content={`${error.response.status} ${error.response.statusText}`}
+          />
+        )}
 
-      {error && (
-        <ErrorWarning
-          title="Error during Load"
-          content={`${error.response.status} ${error.response.statusText}`}
-        />
-      )}
-
-      {postList &&
-        postList.map(({ title, content, id }) => (
-          <MessageContext.Provider value={{ showToast, dispatch }}>
+        {postList &&
+          postList.map(({ title, content, id }) => (
             <section className="pt-5 pb-2 bg-[#F3F4F6]" key={id}>
               <div className="container">
                 <div className="flex flex-wrap mx-4">
@@ -106,8 +80,9 @@ function BlogList() {
                 </div>
               </div>
             </section>
-          </MessageContext.Provider>
-        ))}
+          ))}
+      </div>
+      <ToastContainer />
     </div>
   );
 }

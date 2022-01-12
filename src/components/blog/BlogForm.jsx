@@ -70,6 +70,7 @@ function BlogForm({ postId, handleDidSave }) {
               name="title"
               className="shadow appearance-none rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
               type="text"
+              placeholder="title"
             ></input>
             {saveErrorMessages.title?.map((message) => (
               <p className="text-red-400">{message}</p>

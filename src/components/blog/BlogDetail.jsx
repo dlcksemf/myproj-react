@@ -6,18 +6,17 @@ import { useApiAxios } from 'api/base';
 import BlogDeleteConfirm from './BlogDeleteConfirm';
 import LoadingIndicator from 'components/LoadingIndicator';
 import ErrorWarning from 'components/ErrorWarning';
-import MessageContext from './BlogList';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function BlogDetail({ postId }) {
-  const { dispatch } = useContext(MessageContext);
-
   const [confirmDelete, setConfirmDelete] = useState(false);
 
   const [{ data: post, loading, error }, refetch] = useApiAxios(
     `/blog/api/posts/${postId}/`,
   );
 
-  const [{ loading: deleteLoading, error: deleteError }, deletingPost] =
+  const [{ loading: deleteLoading, error: deleteError }, deletePost] =
     useApiAxios(
       { url: `/blog/api/posts/${postId}/`, method: 'DELETE' },
       { manual: true },
@@ -28,14 +27,22 @@ function BlogDetail({ postId }) {
     refetch();
   }, []);
 
-  const handleDelete = () => {
+  const handleConfirmDelete = () => {
     setConfirmDelete(true);
   };
 
-  const deletePost = () => {
-    deletingPost().then(() => {
-      dispatch({ type: 'SHOW' });
+  const handleDelete = () => {
+    deletePost().then(() => {
       navigate('/blog/');
+      toast('🦄 Post Deleted!', {
+        position: 'top-right',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
       setConfirmDelete(false);
     });
   };
@@ -64,10 +71,11 @@ function BlogDetail({ postId }) {
 
       {confirmDelete && (
         <BlogDeleteConfirm
-          deletePost={deletePost}
+          deletePost={handleDelete}
           handleCancleButton={handleCancleButton}
         />
       )}
+
       <div className="flex justify-center items-center rounded grid md:grid-cols-2 grid-cols-1 shadow-2xl bg-slate-800 xl:w-4/5 md:w-full md:h-4/5 h-full w-96 text-center text-sm rounded-sm">
         <div className="px-3">
           <img src="https://placeimg.com/640/480/tech" alt="tech photos" />
@@ -95,7 +103,7 @@ function BlogDetail({ postId }) {
             EDIT
           </div>
           <div
-            onClick={handleDelete}
+            onClick={handleConfirmDelete}
             disabled={deleteLoading}
             className="
             bg-gray-200
