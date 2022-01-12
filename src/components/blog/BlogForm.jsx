@@ -57,7 +57,7 @@ function BlogForm({ postId, handleDidSave }) {
           content={`${getError.response.status} ${getError.response.statusText}`}
         />
       )}
-      }
+
       <div className="block p-6 rounded-lg shadow-lg bg-white max-w-md">
         <form onSubmit={savePost}>
           <div className="mb-6">

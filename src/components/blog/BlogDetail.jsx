@@ -1,13 +1,16 @@
 // https://tailwindcomponents.com/component/avatar-ui-design
 
 import { useNavigate } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { useApiAxios } from 'api/base';
 import BlogDeleteConfirm from './BlogDeleteConfirm';
 import LoadingIndicator from 'components/LoadingIndicator';
 import ErrorWarning from 'components/ErrorWarning';
+import MessageContext from './BlogList';
 
 function BlogDetail({ postId }) {
+  const { dispatch } = useContext(MessageContext);
+
   const [confirmDelete, setConfirmDelete] = useState(false);
 
   const [{ data: post, loading, error }, refetch] = useApiAxios(
@@ -31,6 +34,7 @@ function BlogDetail({ postId }) {
 
   const deletePost = () => {
     deletingPost().then(() => {
+      dispatch({ type: 'SHOW' });
       navigate('/blog/');
       setConfirmDelete(false);
     });
