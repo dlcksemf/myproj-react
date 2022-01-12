@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import { useApiAxios } from 'api/base';
 import BlogDeleteConfirm from './BlogDeleteConfirm';
 import LoadingIndicator from 'components/LoadingIndicator';
+import ErrorWarning from 'components/ErrorWarning';
 
 function BlogDetail({ postId }) {
   const [confirmDelete, setConfirmDelete] = useState(false);
@@ -42,12 +43,20 @@ function BlogDetail({ postId }) {
   return (
     <>
       {loading && <LoadingIndicator />}
-      {error &&
-        `error ... (${error.response.status} ${error.response.statusText})`}
+      {error && (
+        <ErrorWarning
+          title="Error during Load"
+          content={`${error.response.status} ${error.response.statusText}`}
+        />
+      )}
 
       {deleteLoading && <LoadingIndicator>deleting ...</LoadingIndicator>}
-      {deleteError &&
-        `error ... (${deleteError.response.status} ${deleteError.response.statusText})`}
+      {deleteError && (
+        <ErrorWarning
+          title="Error during Delete"
+          content={`${deleteError.response.status} ${deleteError.response.statusText}`}
+        />
+      )}
 
       {confirmDelete && (
         <BlogDeleteConfirm

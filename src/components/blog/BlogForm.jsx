@@ -4,6 +4,7 @@
 import useFieldValues from 'components/hooks/useFieldValues';
 import { useApiAxios } from 'api/base';
 import LoadingIndicator from 'components/LoadingIndicator';
+import ErrorWarning from 'components/ErrorWarning';
 
 const INIT_FIELD_VALUES = { title: '', content: '' };
 
@@ -43,17 +44,20 @@ function BlogForm({ postId, handleDidSave }) {
   return (
     <div>
       {saveLoading && <LoadingIndicator>Saving ...</LoadingIndicator>}
-      {saveError &&
-        `error ... (${saveError.response.status} ${saveError.response.statusText})`}
-
+      {saveError && (
+        <ErrorWarning
+          title="Error during Save"
+          content={`${saveError.response.status} ${saveError.response.statusText}`}
+        />
+      )}
       {getLoading && <LoadingIndicator />}
       {getError && (
-        <h2>
-          `error ... (${getError.response.status} $
-          {getError.response.statusText})`
-        </h2>
+        <ErrorWarning
+          title="Error during Load"
+          content={`${getError.response.status} ${getError.response.statusText}`}
+        />
       )}
-
+      }
       <div className="block p-6 rounded-lg shadow-lg bg-white max-w-md">
         <form onSubmit={savePost}>
           <div className="mb-6">

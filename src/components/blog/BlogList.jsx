@@ -1,6 +1,7 @@
 // https://tailwindcomponents.com/component/tailwind-css-cards
 
 import { useApiAxios } from 'api/base';
+import ErrorWarning from 'components/ErrorWarning';
 import LoadingIndicator from 'components/LoadingIndicator';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -17,8 +18,13 @@ function BlogList() {
   return (
     <div>
       {loading && <LoadingIndicator />}
-      {error &&
-        `error ... (${error.response.status} ${error.response.statusText})`}
+
+      {error && (
+        <ErrorWarning
+          title="Error during Load"
+          content={`${error.response.status} ${error.response.statusText}`}
+        />
+      )}
 
       {postList &&
         postList.map(({ title, content, id }) => (
