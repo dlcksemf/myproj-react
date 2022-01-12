@@ -1,10 +1,9 @@
-import useAxios from 'axios-hooks';
-import { API_HOST } from 'Constants';
+import { useApiAxios } from 'api/base';
 import { Link } from 'react-router-dom';
 
 function ArticleDetail({ articleId }) {
-  const url = `${API_HOST}/news/api/articles/${articleId}`;
-  const [{ data: article, loading, error }] = useAxios(url);
+  const url = `/news/api/articles/${articleId}`;
+  const [{ data: article, loading, error }] = useApiAxios(url);
 
   return (
     <div>

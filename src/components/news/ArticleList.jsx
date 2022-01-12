@@ -1,12 +1,16 @@
-import useAxios from 'axios-hooks';
+import { useApiAxios } from 'api/base';
 import DebugStates from 'components/DebugStates';
-import { API_HOST } from 'Constants';
+import { useEffect } from 'react/cjs/react.development';
 import ArticleSummary from './ArticleSummary';
 
 // 뉴스 기사 목록
 function ArticleList() {
-  const url = `${API_HOST}/news/api/articles/`;
-  const [{ data: articleList, error, loading }] = useAxios(url);
+  const url = '/news/api/articles/';
+  const [{ data: articleList, error, loading }, fetchData] = useApiAxios(url);
+
+  useEffect(() => {
+    fetchData();
+  }, []);
 
   return (
     <div>
