@@ -6,7 +6,7 @@ import ArticleSummary from './ArticleSummary';
 // 뉴스 기사 목록
 function ArticleList() {
   const url = `${API_HOST}/news/api/articles/`;
-  const [{ data: articleList, error, loading }, refetch] = useAxios(url);
+  const [{ data: articleList, error, loading }] = useAxios(url);
 
   return (
     <div>
