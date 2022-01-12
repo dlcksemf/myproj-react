@@ -1,4 +1,10 @@
-function ReviewForm({ handleChange, fieldValues, submitReview, loading }) {
+function ReviewForm({
+  handleChange,
+  fieldValues,
+  errorMessages,
+  submitReview,
+  loading,
+}) {
   const handleClickedSubmitButton = (e) => {
     if (submitReview) {
       submitReview(e);
@@ -29,6 +35,7 @@ function ReviewForm({ handleChange, fieldValues, submitReview, loading }) {
               <option>4</option>
               <option>5</option>
             </select>
+            <div className="text-red-400">{errorMessages.score}</div>
           </div>
           <div className="form-group mb-6">
             <textarea
@@ -57,6 +64,7 @@ function ReviewForm({ handleChange, fieldValues, submitReview, loading }) {
               rows="3"
               placeholder="Message"
             ></textarea>
+            <div className="text-red-400">{errorMessages.content}</div>
           </div>
 
           <button
