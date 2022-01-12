@@ -1,9 +1,14 @@
 import { useApiAxios } from 'api/base';
 import { Link } from 'react-router-dom';
+import { useEffect } from 'react';
 
 function ArticleDetail({ articleId }) {
   const url = `/news/api/articles/${articleId}`;
-  const [{ data: article, loading, error }] = useApiAxios(url);
+  const [{ data: article, loading, error }, refetch] = useApiAxios(url);
+
+  useEffect(() => {
+    refetch();
+  }, []);
 
   return (
     <div>

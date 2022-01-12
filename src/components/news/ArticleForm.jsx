@@ -5,12 +5,17 @@ import Button from 'components/Button';
 import DebugStates from 'components/DebugStates';
 import H2 from 'components/H2';
 
+// 함수 안에서는 새로운 객체 생성 최소화
 const INIT_FIELD_VALUES = { title: '', content: '' };
 
 // !articleId : 생성
 // articleId : 수정
 function ArticleForm({ articleId, handleDidSave }) {
-  const { fieldValues, handleFieldChange } = useFieldValues(INIT_FIELD_VALUES);
+  const [{ data: article, loading: getLoading, error: getError }] = useApiAxios(
+    `/news/api/articles/${articleId}/`,
+    { manual: !articleId },
+  );
+
   const [
     {
       loading: saveLoading,
@@ -20,10 +25,14 @@ function ArticleForm({ articleId, handleDidSave }) {
     saveRequest,
   ] = useApiAxios(
     {
-      url: '/news/api/articles/',
-      method: 'POST',
+      url: `/news/api/articles/${!articleId ? '' : articleId + '/'}`,
+      method: !articleId ? 'POST' : 'PUT',
     },
     { manual: true },
+  );
+
+  const { fieldValues, handleFieldChange } = useFieldValues(
+    article || INIT_FIELD_VALUES,
   );
 
   const handleSubmit = (e) => {
@@ -78,6 +87,9 @@ function ArticleForm({ articleId, handleDidSave }) {
       </form>
 
       <DebugStates
+        article={article}
+        getLoading={getLoading}
+        getError={getError}
         fieldValues={fieldValues}
         saveError={saveError}
         saveLoading={saveLoading}
