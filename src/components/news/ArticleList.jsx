@@ -19,9 +19,14 @@ function ArticleList() {
       {error && 'Error during Load.'}
 
       {articleList &&
-        articleList.map((article) => {
-          return <ArticleSummary article={article} key={article.id} />;
-        })}
+        articleList.map((article) => (
+          <div
+            key={article.id}
+            className="transition-transform duration-300 hover:-translate-y-5"
+          >
+            <ArticleSummary article={article} />
+          </div>
+        ))}
 
       <DebugStates data={articleList} loading={loading} error={error} />
     </div>
