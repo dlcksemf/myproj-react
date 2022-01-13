@@ -45,7 +45,7 @@ function ArticleDetail({ articleId }) {
 
       <h3 className="text-2xl my-5">{article?.title}</h3>
 
-      {article.photo && (
+      {article?.photo && (
         <img src={article.photo} alt={article.title} className="rounded" />
       )}
 
