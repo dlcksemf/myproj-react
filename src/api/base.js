@@ -19,7 +19,7 @@ function useApiAxios(config, options) {
   const [errorMessages, setErrorMessages] = useState([]);
 
   useEffect(() => {
-    error && error.response.status === 400
+    error?.response?.status === 400
       ? setErrorMessages(error.response.data)
       : setErrorMessages({});
   }, [error]);
