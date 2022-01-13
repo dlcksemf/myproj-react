@@ -1,34 +1,84 @@
 // loading 추가
 // https://tailwindcomponents.com/component/tailwind-login-form
 
-function BlogForm({ submitReview, handleChange, fieldValues }) {
-  const handleClickedSubmitButton = (e) => {
-    if (submitReview) {
-      submitReview(e);
-    } else {
-      console.error('submitReview 함수 구현');
-    }
+import useFieldValues from 'components/hooks/useFieldValues';
+import { useApiAxios } from 'api/base';
+import LoadingIndicator from 'components/LoadingIndicator';
+import ErrorWarning from 'components/ErrorWarning';
+
+const INIT_FIELD_VALUES = { title: '', content: '' };
+
+function BlogForm({ postId, handleDidSave }) {
+  const [{ data: post, error: getError, loading: getLoading }] = useApiAxios(
+    `/blog/api/posts/${postId}/`,
+    { manual: !postId },
+  );
+
+  const [
+    {
+      error: saveError,
+      loading: saveLoading,
+      errorMessages: saveErrorMessages,
+    },
+    saveRequest,
+  ] = useApiAxios(
+    {
+      url: `/blog/api/posts/${!postId ? '' : postId + '/'}`,
+      method: !postId ? 'POST' : 'PUT',
+    },
+    { manual: true },
+  );
+
+  const { fieldValues, handleFieldChange } = useFieldValues(
+    post || INIT_FIELD_VALUES,
+  );
+
+  const savePost = (e) => {
+    e.preventDefault();
+    saveRequest({ data: fieldValues }).then((response) => {
+      const savedPost = response.data;
+      if (handleDidSave) handleDidSave(savedPost);
+    });
   };
 
   return (
     <div>
+      {saveLoading && <LoadingIndicator>Saving ...</LoadingIndicator>}
+      {saveError && (
+        <ErrorWarning
+          title="Error during Save"
+          content={`${saveError.response.status} ${saveError.response.statusText}`}
+        />
+      )}
+      {getLoading && <LoadingIndicator />}
+      {getError && (
+        <ErrorWarning
+          title="Error during Load"
+          content={`${getError.response.status} ${getError.response.statusText}`}
+        />
+      )}
+
       <div className="block p-6 rounded-lg shadow-lg bg-white max-w-md">
-        <form>
+        <form onSubmit={savePost}>
           <div className="mb-6">
             <label className="block text-gray-700 text-sm font-bold mb-2">
               제목
             </label>
             <input
-              onChange={handleChange}
               value={fieldValues.title}
+              onChange={handleFieldChange}
               name="title"
               className="shadow appearance-none rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
               type="text"
+              placeholder="title"
             ></input>
+            {saveErrorMessages.title?.map((message) => (
+              <p className="text-red-400">{message}</p>
+            ))}
           </div>
           <div className="form-group mb-6">
             <textarea
-              onChange={handleChange}
+              onChange={handleFieldChange}
               value={fieldValues.content}
               name="content"
               className="
@@ -53,10 +103,12 @@ function BlogForm({ submitReview, handleChange, fieldValues }) {
               rows="3"
               placeholder="Message"
             ></textarea>
+            {saveErrorMessages.content?.map((message) => (
+              <p className="text-red-400">{message}</p>
+            ))}
           </div>
 
           <button
-            onClick={handleClickedSubmitButton}
             className="
           w-full
           px-6
