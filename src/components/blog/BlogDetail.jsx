@@ -57,7 +57,7 @@ function BlogDetail({ postId }) {
       {error && (
         <ErrorWarning
           title="Error during Load"
-          content={`${error.response.status} ${error.response.statusText}`}
+          content={`${error?.response?.status} ${error?.response?.statusText}`}
         />
       )}
 
@@ -65,7 +65,7 @@ function BlogDetail({ postId }) {
       {deleteError && (
         <ErrorWarning
           title="Error during Delete"
-          content={`${deleteError.response.status} ${deleteError.response.statusText}`}
+          content={`${deleteError?.response?.status} ${deleteError?.response?.statusText}`}
         />
       )}
 
@@ -81,22 +81,20 @@ function BlogDetail({ postId }) {
           <img src="https://placeimg.com/640/480/tech" alt="tech photos" />
         </div>
 
-        {post && (
-          <div className="bg-my-color text-white w-full h-full flex justify-center items-center px-3 py-4 text-center">
-            <div className="h-full px-8 text-gray-100 lg:text-lg">
-              <div className="font-sans md:mb-3 mb-2">
-                <h2 className="uppercase font-medium">{post.title}</h2>
-              </div>
-              <p className="lg:text-md text-sm">
-                {post.content.split(/[\r\n]+/).map((line, index) => (
-                  <p className="my-3" key={index}>
-                    {line}
-                  </p>
-                ))}
-              </p>
+        <div className="bg-my-color text-white w-full h-full flex justify-center items-center px-3 py-4 text-center">
+          <div className="h-full px-8 text-gray-100 lg:text-lg">
+            <div className="font-sans md:mb-3 mb-2">
+              <h2 className="uppercase font-medium">{post?.title}</h2>
             </div>
+            <p className="lg:text-md text-sm">
+              {post?.content.split(/[\r\n]+/).map((line, index) => (
+                <p className="my-3" key={index}>
+                  {line}
+                </p>
+              ))}
+            </p>
           </div>
-        )}
+        </div>
 
         <div>
           <div

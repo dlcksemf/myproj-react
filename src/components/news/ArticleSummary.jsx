@@ -9,7 +9,14 @@ function ArticleSummary({ article }) {
 
   return (
     <div>
-      <Link to={`/news/${id}/`}>TITLE : {truncateTitle(title)}</Link>
+      {article.photo && (
+        <img
+          src={article.photo}
+          alt={article.title}
+          className="w-10 h-10 inline"
+        />
+      )}
+      <Link to={`/news/${id}/`}> {truncateTitle(title)}</Link>
     </div>
   );
 }
