@@ -8,6 +8,9 @@ function ArticleDetail({ articleId }) {
 
   const [{ data: article, loading, error }, refetch] = useApiAxios(
     `/news/api/articles/${articleId}`,
+    {
+      manual: true,
+    },
   );
 
   const [{ loading: deleteLoading, error: deleteError }, deleteArticle] =

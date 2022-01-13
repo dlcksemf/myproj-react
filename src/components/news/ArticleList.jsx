@@ -1,12 +1,14 @@
 import { useApiAxios } from 'api/base';
 import DebugStates from 'components/DebugStates';
-import { useEffect } from 'react/cjs/react.development';
+import { useEffect } from 'react';
 import ArticleSummary from './ArticleSummary';
 
 // 뉴스 기사 목록
 function ArticleList() {
   const url = '/news/api/articles/';
-  const [{ data: articleList, error, loading }, fetchData] = useApiAxios(url);
+  const [{ data: articleList, error, loading }, fetchData] = useApiAxios(url, {
+    manual: true,
+  });
 
   useEffect(() => {
     fetchData();
