@@ -1,4 +1,4 @@
-import EmojisForm from 'components/emojis/EmojisForm';
+import { EmojisForm } from 'components/emojis/EmojisForm';
 import { useParams } from 'react-router-dom';
 
 function PageEmojisForm() {
