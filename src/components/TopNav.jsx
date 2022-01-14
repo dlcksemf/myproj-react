@@ -17,7 +17,7 @@ function TopNav() {
           <MyLink to="/news/">뉴스</MyLink>
         </li>
         <li>
-          <MyLink to="/news/">Emojis</MyLink>
+          <MyLink to="/emojis/">Emojis</MyLink>
         </li>
       </ul>
     </div>

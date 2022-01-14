@@ -20,6 +20,7 @@ import PageNewsArticleDetail from 'pages/news/PageNewsArticleDetail';
 import PageNewsArticleForm from 'pages/news/PageNewsArticleForm';
 import PageEmojisList from 'pages/emojis/PageEmojisList';
 import PageEmojisForm from 'pages/emojis/PageEmojisForm';
+import PageEmojisDetail from 'pages/emojis/PageEmojisDetail';
 
 function App() {
   const windowWidth = useWindowWidth();
@@ -51,8 +52,9 @@ function App() {
           <Route path="/reviews/:reviewId/edit/" element={<ReviewForm />} />
 
           <Route path="/emojis/" element={<PageEmojisList />} />
+          <Route path="/emojis/:emojiId/" element={<PageEmojisDetail />} />
           <Route path="/emojis/new" element={<PageEmojisForm />} />
-          <Route path="/emojis/:emojisId/edit" element={<PageEmojisForm />} />
+          <Route path="/emojis/:emojiId/edit" element={<PageEmojisForm />} />
 
           <Route path="/examples/components/" element={<Components />} />
           <Route path="/examples/css-module/" element={<CssModule />} />
