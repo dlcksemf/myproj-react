@@ -1,5 +1,4 @@
 import { useApiAxios } from 'api/base';
-import DebugStates from 'components/DebugStates';
 import useFieldValues from 'components/hooks/useFieldValues';
 import Input from 'components/Input';
 import produce from 'immer';
@@ -207,7 +206,7 @@ function EmojisForm({ emojiId }) {
                 </div>
               </div>
 
-              <div className="flex items-center justify-center  md:gap-8 gap-4 pt-5 pb-5">
+              <div className="flex items-center justify-center md:gap-8 gap-4 pt-5 pb-5">
                 <button
                   onClick={() => {
                     navigate(!emojiId ? '/emojis/' : `/emojis/${emojiId}`);
@@ -224,7 +223,6 @@ function EmojisForm({ emojiId }) {
           </InputContext.Provider>
         </div>
       </div>
-      <DebugStates emoji={emoji} fieldValues={fieldValues} />
     </div>
   );
 }

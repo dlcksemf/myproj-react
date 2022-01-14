@@ -1,6 +1,5 @@
 import { useApiAxios } from 'api/base';
 import Button from 'components/Button';
-import DebugStates from 'components/DebugStates';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -47,8 +46,6 @@ function EmojisDetail({ emojiId }) {
         </Button>
         <Button onClick={handleDeleteButton}>Delete</Button>
       </div>
-
-      <DebugStates data={data} />
     </div>
   );
 }
