@@ -18,6 +18,8 @@ import ContextApiSample2 from 'pages/examples/ContextApiSample2';
 import PageNewsIndex from 'pages/news/PageNewsIndex';
 import PageNewsArticleDetail from 'pages/news/PageNewsArticleDetail';
 import PageNewsArticleForm from 'pages/news/PageNewsArticleForm';
+import PageEmojisList from 'pages/emojis/PageEmojisList';
+import PageEmojisForm from 'pages/emojis/PageEmojisForm';
 
 function App() {
   const windowWidth = useWindowWidth();
@@ -26,7 +28,7 @@ function App() {
       <div className="app">
         <TopNav />
         <Routes>
-          <Route path="/" element={<Navigate to="/news/" />} />
+          <Route path="/" element={<Navigate to="/emojis/" />} />
 
           <Route path="/accounts/login/" element={<Login />} />
           <Route path="/accounts/profile/" element={<Profile />} />
@@ -47,6 +49,10 @@ function App() {
           <Route path="/reviews/" element={<PageReviewList />} />
           <Route path="/reviews/new/" element={<ReviewForm />} />
           <Route path="/reviews/:reviewId/edit/" element={<ReviewForm />} />
+
+          <Route path="/emojis/" element={<PageEmojisList />} />
+          <Route path="/emojis/new" element={<PageEmojisForm />} />
+          <Route path="/emojis/:emojisId/edit" element={<PageEmojisForm />} />
 
           <Route path="/examples/components/" element={<Components />} />
           <Route path="/examples/css-module/" element={<CssModule />} />
