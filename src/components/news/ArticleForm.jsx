@@ -33,9 +33,8 @@ function ArticleForm({ articleId, handleDidSave }) {
     { manual: true },
   );
 
-  const { fieldValues, handleFieldChange, setFieldValues } = useFieldValues(
-    article || INIT_FIELD_VALUES,
-  );
+  const { fieldValues, handleFieldChange, setFieldValues, formData } =
+    useFieldValues(article || INIT_FIELD_VALUES);
 
   useEffect(() => {
     // 11: 30 => 수정시에 photo error
@@ -62,18 +61,6 @@ function ArticleForm({ articleId, handleDidSave }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    // fieldValues : 객체 (except 파일)
-    // 파일을 업로드 하려면 FormData 인스턴스를 써야한다.
-    const formData = new FormData();
-    Object.entries(fieldValues).forEach(([name, value]) => {
-      if (Array.isArray(value)) {
-        const fileList = value;
-        fileList.forEach((file) => formData.append(name, file));
-      } else {
-        formData.append(name, value);
-      }
-    });
 
     saveRequest({
       data: formData,
