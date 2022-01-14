@@ -11,12 +11,20 @@ function EmojisDetail({ emojiId }) {
     { manual: true },
   );
 
+  const [{ loading: deleteLoading, erorr: deleteError }, deleteEmoji] =
+    useApiAxios(
+      { url: `/emojis/api/emojis/${emojiId}/`, method: 'DELETE' },
+      { manual: true },
+    );
+
   useEffect(() => {
     getEmoji();
   }, []);
 
-  const deleteEmoji = () => {
-    console.log('deleting emoji!');
+  const handleDeleteButton = () => {
+    deleteEmoji().then(() => {
+      navigate('/emojis/');
+    });
   };
 
   return (
@@ -37,7 +45,7 @@ function EmojisDetail({ emojiId }) {
         >
           Edit
         </Button>
-        <Button onClick={deleteEmoji}>Delete</Button>
+        <Button onClick={handleDeleteButton}>Delete</Button>
       </div>
 
       <DebugStates data={data} />
