@@ -17,7 +17,6 @@ const INIT_FIELDVALUES = {
   other_names: '',
   description: '',
   category: 'Smileys & People',
-  removed: false,
   released_date: '',
   released_emoji_version: '',
 };
@@ -37,22 +36,13 @@ function EmojisForm({ emojiId }) {
   ] = useApiAxios(
     {
       url: `emojis/api/emojis/${!emojiId ? '' : emojiId + '/'}`,
-      method: !emojiId ? 'POST' : 'PATCH',
+      method: !emojiId ? 'POST' : 'PUT',
     },
     { manual: true },
   );
 
   const { fieldValues, handleFieldChange, setFieldValues, formData } =
     useFieldValues(emoji || INIT_FIELDVALUES);
-
-  useEffect(() => {
-    setFieldValues(
-      produce((draft) => {
-        draft.apple_version = '';
-        draft.google_version = '';
-      }),
-    );
-  }, [emoji]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
