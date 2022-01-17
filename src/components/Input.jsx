@@ -10,7 +10,7 @@ function Input({ type, name, className }) {
       name={name}
       value={type !== 'file' ? fieldValues[name] : ''}
       placeholder={name}
-      accept={type === 'file' && '.png, .jpg, .jpeg'}
+      accept={type === 'file' ? '.png, .jpg, .jpeg' : ''}
       onChange={handleFieldChange}
       className={
         className
