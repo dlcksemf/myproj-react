@@ -1,7 +1,7 @@
 import './App.css';
 import { Routes, Route, Navigate } from 'react-router-dom';
-import Login from 'pages/accounts/Login';
-import Profile from 'pages/accounts/Profile';
+import PageLogin from 'pages/accounts/PageLogin';
+import PageProfile from 'pages/accounts/PageProfile';
 import PageReviewList from 'pages/reviews/ReviewList';
 import TopNav from 'components/TopNav';
 import Components from 'pages/examples/Components';
@@ -31,8 +31,8 @@ function App() {
         <Routes>
           <Route path="/" element={<Navigate to="/emojis/" />} />
 
-          <Route path="/accounts/login/" element={<Login />} />
-          <Route path="/accounts/profile/" element={<Profile />} />
+          <Route path="/accounts/login/" element={<PageLogin />} />
+          <Route path="/accounts/profile/" element={<PageProfile />} />
 
           <Route path="/blog/" element={<PageBlogList />} />
           <Route path="/blog/:postId/" element={<PageBlogDetail />} />
