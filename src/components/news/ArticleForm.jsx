@@ -15,8 +15,14 @@ const INIT_FIELD_VALUES = { title: '', content: '' };
 // !articleId : 생성
 // articleId : 수정
 function ArticleForm({ articleId, handleDidSave }) {
+  const [auth] = useAuth();
+
   const [{ data: article, loading: getLoading, error: getError }] = useApiAxios(
-    `/news/api/articles/${articleId}/`,
+    {
+      url: `/news/api/articles/${articleId}/`,
+      method: 'GET',
+      headers: { Authorization: `Bearer ${auth.access}` },
+    },
     { manual: !articleId },
   );
 
@@ -31,6 +37,7 @@ function ArticleForm({ articleId, handleDidSave }) {
     {
       url: `/news/api/articles/${!articleId ? '' : articleId + '/'}`,
       method: !articleId ? 'POST' : 'PATCH',
+      headers: { Authorization: `Bearer ${auth.access}` },
     },
     { manual: true },
   );

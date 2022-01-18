@@ -16,6 +16,7 @@ function ArticleSummary({ article }) {
           className="w-10 h-10 inline"
         />
       )}
+      <p>by {article?.author?.username}</p>
       <Link to={`/news/${id}/`}> {truncateTitle(title)}</Link>
     </div>
   );
