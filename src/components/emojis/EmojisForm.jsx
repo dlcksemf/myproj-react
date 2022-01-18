@@ -1,14 +1,18 @@
 import { useApiAxios } from 'api/base';
+
 import DebugStates from 'components/DebugStates';
-import useFieldValues from 'components/hooks/useFieldValues';
-import Input from 'components/Input';
-import produce from 'immer';
+
 import { createContext, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+
+import useFieldValues from 'components/hooks/useFieldValues';
+
+import Input from 'components/Input';
+
+import produce from 'immer';
 
 // https://tailwindcomponents.com/component/form-with-file-input
 
-const INIT_FIELDVALUES = {
+const INIT_FIELD_VALUES = {
   id: '',
   created_at: '',
   updated_at: '',
@@ -23,38 +27,62 @@ const INIT_FIELDVALUES = {
 
 const InputContext = createContext();
 
-function EmojisForm({ emojiId }) {
-  const navigate = useNavigate();
+function EmojisForm({ emojiId, handleDidSave }) {
   const [{ data: emoji, loading: getLoading, error: getError }] = useApiAxios(
     `emojis/api/emojis/${emojiId}/`,
+
     { manual: !emojiId },
   );
 
   const [
-    { loading: saveLoading, error: saveError, saveErrorMessages },
+    {
+      loading: saveLoading,
+
+      error: saveError,
+
+      errorMessages: saveErrorMessages,
+    },
+
     saveEmoji,
   ] = useApiAxios(
     {
       url: `emojis/api/emojis/${!emojiId ? '' : emojiId + '/'}`,
-      method: !emojiId ? 'POST' : 'PUT',
+
+      method: !emojiId ? 'POST' : 'PATCH',
     },
+
     { manual: true },
   );
 
   const { fieldValues, handleFieldChange, setFieldValues, formData } =
-    useFieldValues(emoji || INIT_FIELDVALUES);
+    useFieldValues(emoji || INIT_FIELD_VALUES);
+
+  useEffect(() => {
+    setFieldValues(
+      produce((draft) => {
+        draft.apple_version = '';
+
+        draft.google_version = '';
+      }),
+    );
+  }, [emoji]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    saveEmoji({ data: formData }).then((response) => {
+
+    saveEmoji({
+      data: formData,
+    }).then((response) => {
       const savedEmoji = response.data;
-      navigate(`/emojis/${savedEmoji.id}/`);
+
+      if (handleDidSave) handleDidSave(savedEmoji);
     });
   };
 
   return (
     <div>
       <h2>Emojis Form</h2>
+
       <div className="flex bg-gray-200 items-center justify-center">
         <div className="grid bg-white rounded-lg shadow-xl w-11/12 md:w-9/12 lg:w-1/2 m-3">
           <div className="flex justify-center py-4">
@@ -90,8 +118,10 @@ function EmojisForm({ emojiId }) {
                 <label className="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold">
                   Emoji Name
                 </label>
+
                 <Input name="name" />
               </div>
+
               {saveErrorMessages?.name?.map((message) => (
                 <p className="text-red">{message}</p>
               ))}
@@ -101,8 +131,10 @@ function EmojisForm({ emojiId }) {
                   <label className="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold">
                     Apple Name
                   </label>
+
                   <Input name="apple_name" />
                 </div>
+
                 {saveErrorMessages?.apple_name?.map((message) => (
                   <p className="text-red">{message}</p>
                 ))}
@@ -111,9 +143,11 @@ function EmojisForm({ emojiId }) {
                   <label className="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold">
                     Other Names
                   </label>
+
                   <Input name="other_names" />
                 </div>
               </div>
+
               {saveErrorMessages?.other_names?.map((message) => (
                 <p className="text-red">{message}</p>
               ))}
@@ -122,6 +156,7 @@ function EmojisForm({ emojiId }) {
                 <label className="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold">
                   Description
                 </label>
+
                 <textarea
                   name="description"
                   value={fieldValues.description}
@@ -130,6 +165,7 @@ function EmojisForm({ emojiId }) {
                   className="py-2 px-3 h-48 rounded-lg border-2 border-purple-300 mt-1 focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent"
                 />
               </div>
+
               {saveErrorMessages?.description?.map((message) => (
                 <p className="text-red">{message}</p>
               ))}
@@ -138,6 +174,7 @@ function EmojisForm({ emojiId }) {
                 <label className="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold">
                   Category
                 </label>
+
                 <select
                   name="category"
                   value={fieldValues.category}
@@ -145,15 +182,23 @@ function EmojisForm({ emojiId }) {
                   className="py-2 px-3 rounded-lg border-2 border-purple-300 mt-1 focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent"
                 >
                   <option>Smileys & People</option>
+
                   <option>Animals & Nature</option>
+
                   <option>Food & Drink</option>
+
                   <option>Activity</option>
+
                   <option>Travel & Places</option>
+
                   <option>Objects</option>
+
                   <option>Symbols</option>
+
                   <option>Flags</option>
                 </select>
               </div>
+
               {saveErrorMessages?.category?.map((message) => (
                 <p className="text-red">{message}</p>
               ))}
@@ -162,8 +207,10 @@ function EmojisForm({ emojiId }) {
                 <label className="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold">
                   Released Date
                 </label>
+
                 <Input name="released_date" />
               </div>
+
               {saveErrorMessages?.released_date?.map((message) => (
                 <p className="text-red">{message}</p>
               ))}
@@ -172,8 +219,10 @@ function EmojisForm({ emojiId }) {
                 <label className="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold">
                   Released Version // Emoji
                 </label>
+
                 <Input name="released_emoji_version" />
               </div>
+
               {saveErrorMessages?.released_emoji_version?.map((message) => (
                 <p className="text-red">{message}</p>
               ))}
@@ -182,6 +231,7 @@ function EmojisForm({ emojiId }) {
                 <label className="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold mb-1">
                   Upload Photo
                 </label>
+
                 <div className="flex items-center justify-center w-full">
                   <label className="flex flex-col border-4 border-dashed w-full h-32 hover:bg-gray-100 hover:border-purple-300 group">
                     <div className="flex flex-col items-center justify-center pt-7">
@@ -199,10 +249,12 @@ function EmojisForm({ emojiId }) {
                           d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
                         ></path>
                       </svg>
+
                       <p className="lowercase text-sm text-gray-400 group-hover:text-purple-600 pt-1 tracking-wider">
                         Select a photo
                       </p>
                     </div>
+
                     <Input
                       type="file"
                       name="apple_version"
@@ -211,6 +263,7 @@ function EmojisForm({ emojiId }) {
                   </label>
                 </div>
               </div>
+
               {saveErrorMessages?.apple_version?.map((message) => (
                 <p className="text-red">{message}</p>
               ))}
@@ -219,6 +272,7 @@ function EmojisForm({ emojiId }) {
                 <label className="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold mb-1">
                   Upload Photo
                 </label>
+
                 <div className="flex items-center justify-center w-full">
                   <label className="flex flex-col border-4 border-dashed w-full h-32 hover:bg-gray-100 hover:border-purple-300 group">
                     <div className="flex flex-col items-center justify-center pt-7">
@@ -236,10 +290,12 @@ function EmojisForm({ emojiId }) {
                           d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
                         ></path>
                       </svg>
+
                       <p className="lowercase text-sm text-gray-400 group-hover:text-purple-600 pt-1 tracking-wider">
                         Select a photo
                       </p>
                     </div>
+
                     <Input
                       type="file"
                       name="google_version"
@@ -248,19 +304,16 @@ function EmojisForm({ emojiId }) {
                   </label>
                 </div>
               </div>
+
               {saveErrorMessages?.google_version?.map((message) => (
                 <p className="text-red">{message}</p>
               ))}
 
               <div className="flex items-center justify-center md:gap-8 gap-4 pt-5 pb-5">
-                <button
-                  onClick={() => {
-                    navigate(!emojiId ? '/emojis/' : `/emojis/${emojiId}`);
-                  }}
-                  className="w-auto bg-gray-500 hover:bg-gray-700 rounded-lg shadow-xl font-medium text-white px-4 py-2"
-                >
+                <button className="w-auto bg-gray-500 hover:bg-gray-700 rounded-lg shadow-xl font-medium text-white px-4 py-2">
                   Cancel
                 </button>
+
                 <button className="w-auto bg-purple-500 hover:bg-purple-700 rounded-lg shadow-xl font-medium text-white px-4 py-2">
                   Save
                 </button>
@@ -269,7 +322,6 @@ function EmojisForm({ emojiId }) {
           </InputContext.Provider>
         </div>
       </div>
-      <DebugStates fieldValues={fieldValues} data={emoji} />
     </div>
   );
 }
