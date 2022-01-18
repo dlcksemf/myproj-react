@@ -7,7 +7,7 @@ import LoadingIndicator from 'components/LoadingIndicator';
 import Button from 'components/Button';
 import DebugStates from 'components/DebugStates';
 import H2 from 'components/H2';
-import useAuth from 'components/hooks/useAuth';
+import { useAuth } from 'contexts/AuthContext';
 
 // 함수 안에서는 새로운 객체 생성 최소화
 const INIT_FIELD_VALUES = { title: '', content: '' };
@@ -15,7 +15,7 @@ const INIT_FIELD_VALUES = { title: '', content: '' };
 // !articleId : 생성
 // articleId : 수정
 function ArticleForm({ articleId, handleDidSave }) {
-  const [auth] = useAuth();
+  const { auth } = useAuth();
 
   const [{ data: article, loading: getLoading, error: getError }] = useApiAxios(
     {

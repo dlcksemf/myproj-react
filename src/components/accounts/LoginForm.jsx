@@ -1,8 +1,8 @@
 import { useApiAxios } from 'api/base';
 import DebugStates from 'components/DebugStates';
-import useAuth from 'components/hooks/useAuth';
+// import useAuth from 'components/hooks/useAuth';
+import { useAuth } from 'contexts/AuthContext';
 import useFieldValues from 'components/hooks/useFieldValues';
-import useLocalStorage from 'components/hooks/useLocalStorage';
 import { useNavigate } from 'react-router-dom';
 
 // https://tailwindcomponents.com/component/login-form-14
@@ -11,7 +11,7 @@ const INIT_FIELD_VALUES = { username: '', password: '' };
 
 function LoginForm() {
   const navigate = useNavigate();
-  const [auth, , login] = useAuth();
+  const { auth, login } = useAuth();
 
   const [{ loading, error }, requestToken] = useApiAxios(
     {

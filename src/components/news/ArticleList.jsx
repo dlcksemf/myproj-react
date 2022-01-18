@@ -1,23 +1,17 @@
 import { useApiAxios } from 'api/base';
 import DebugStates from 'components/DebugStates';
-import useAuth from 'components/hooks/useAuth';
 import { useEffect } from 'react';
 import ArticleSummary from './ArticleSummary';
+import { useAuth } from 'contexts/AuthContext';
 
 // 뉴스 기사 목록
 function ArticleList() {
-  const [auth] = useAuth();
+  const { auth } = useAuth();
+
   const url = '/news/api/articles/';
-  const [{ data: articleList, error, loading }, fetchData] = useApiAxios(
-    {
-      url: url,
-      method: 'GET',
-      headers: {
-        Authorization: `Bearer ${auth.access}`,
-      },
-    },
-    { manual: true },
-  );
+  const [{ data: articleList, error, loading }, fetchData] = useApiAxios(url, {
+    manual: true,
+  });
 
   useEffect(() => {
     fetchData();
