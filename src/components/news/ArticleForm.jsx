@@ -1,11 +1,13 @@
 import { useApiAxios } from 'api/base';
+import { useEffect } from 'react/cjs/react.development';
+import produce from 'immer';
+
 import useFieldValues from 'components/hooks/useFieldValues';
 import LoadingIndicator from 'components/LoadingIndicator';
 import Button from 'components/Button';
 import DebugStates from 'components/DebugStates';
 import H2 from 'components/H2';
-import { useEffect } from 'react/cjs/react.development';
-import produce from 'immer';
+import useAuth from 'components/hooks/useAuth';
 
 // 함수 안에서는 새로운 객체 생성 최소화
 const INIT_FIELD_VALUES = { title: '', content: '' };

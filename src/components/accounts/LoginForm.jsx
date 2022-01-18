@@ -1,5 +1,6 @@
 import { useApiAxios } from 'api/base';
 import DebugStates from 'components/DebugStates';
+import useAuth from 'components/hooks/useAuth';
 import useFieldValues from 'components/hooks/useFieldValues';
 import useLocalStorage from 'components/hooks/useLocalStorage';
 import { useNavigate } from 'react-router-dom';
@@ -7,11 +8,10 @@ import { useNavigate } from 'react-router-dom';
 // https://tailwindcomponents.com/component/login-form-14
 
 const INIT_FIELD_VALUES = { username: '', password: '' };
-const INITIAL_AUTH = { isLoggedIn: false };
 
 function LoginForm() {
   const navigate = useNavigate();
-  const [auth, setAuth] = useLocalStorage('auth', INITIAL_AUTH);
+  const [auth, setAuth] = useAuth();
 
   const [{ loading, error }, requestToken] = useApiAxios(
     {

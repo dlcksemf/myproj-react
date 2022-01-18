@@ -6,6 +6,11 @@ import { useEffect } from 'react';
 
 const axiosInstance = Axios.create({
   baseURL: API_HOST,
+  headers: {
+    Authorization: localStorage.getItem('auth')
+      ? 'Bearer ' + JSON.parse(localStorage.getItem('auth')).access
+      : null,
+  },
 });
 
 const useAxios = makeUseAxios({ axios: axiosInstance });
