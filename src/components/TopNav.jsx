@@ -17,7 +17,7 @@ function TopNav() {
               <MyLink to="/accounts/login/">로그인</MyLink>
             </li>
             <li>
-              <MyLink to="#">회원가입</MyLink>
+              <MyLink to="/accounts/signup/">회원가입</MyLink>
             </li>
           </>
         )}

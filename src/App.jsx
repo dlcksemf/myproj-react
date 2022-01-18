@@ -21,6 +21,7 @@ import PageNewsArticleForm from 'pages/news/PageNewsArticleForm';
 import PageEmojisList from 'pages/emojis/PageEmojisList';
 import PageEmojisForm from 'pages/emojis/PageEmojisForm';
 import PageEmojisDetail from 'pages/emojis/PageEmojisDetail';
+import PageSignup from 'pages/accounts/PageSignup';
 
 function App() {
   const windowWidth = useWindowWidth();
@@ -33,6 +34,7 @@ function App() {
 
           <Route path="/accounts/login/" element={<PageLogin />} />
           <Route path="/accounts/profile/" element={<PageProfile />} />
+          <Route path="/accounts/signup/" element={<PageSignup />} />
 
           <Route path="/blog/" element={<PageBlogList />} />
           <Route path="/blog/:postId/" element={<PageBlogDetail />} />
