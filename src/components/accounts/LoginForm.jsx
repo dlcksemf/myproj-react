@@ -11,7 +11,7 @@ const INIT_FIELD_VALUES = { username: '', password: '' };
 
 function LoginForm() {
   const navigate = useNavigate();
-  const [auth, setAuth] = useAuth();
+  const [auth, , login] = useAuth();
 
   const [{ loading, error }, requestToken] = useApiAxios(
     {
@@ -28,19 +28,8 @@ function LoginForm() {
     e.preventDefault();
 
     requestToken({ data: fieldValues }).then((response) => {
-      const { access, refresh, username, first_name, last_name } =
-        response.data;
+      login({ ...response.data });
 
-      setAuth({
-        isLoggedIn: true,
-        access,
-        refresh,
-        username,
-        first_name,
-        last_name,
-      });
-
-      console.log(response.data);
       navigate('/news/');
     });
   };
