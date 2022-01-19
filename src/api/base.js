@@ -1,8 +1,7 @@
 import Axios from 'axios';
 import { API_HOST } from 'Constants';
 import { makeUseAxios } from 'axios-hooks';
-import { useState } from 'react/cjs/react.development';
-import { useEffect } from 'react';
+import { useState, useEffect } from 'react';
 
 const axiosInstance = Axios.create({
   baseURL: API_HOST,

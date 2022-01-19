@@ -1,5 +1,5 @@
 import useLocalStorage from 'components/hooks/useLocalStorage';
-const { createContext, useCallback, useContext } = require('react');
+import { createContext, useCallback, useContext } from 'react';
 
 const AuthContext = createContext();
 

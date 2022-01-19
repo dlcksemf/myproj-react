@@ -1,4 +1,4 @@
-const { createContext, useContext, useReducer } = require('react');
+import { createContext, useContext, useReducer } from 'react';
 
 const CountContext = createContext();
 

@@ -1,5 +1,5 @@
 import { useApiAxios } from 'api/base';
-import { useEffect } from 'react/cjs/react.development';
+import { useEffect } from 'react';
 import produce from 'immer';
 
 import useFieldValues from 'components/hooks/useFieldValues';

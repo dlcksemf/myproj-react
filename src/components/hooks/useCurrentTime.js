@@ -1,4 +1,4 @@
-const { useState, useEffect } = require('react');
+import { useState, useEffect } from 'react';
 
 // 현재 시각(HH:MM:SS)을 문자열로 리턴
 
