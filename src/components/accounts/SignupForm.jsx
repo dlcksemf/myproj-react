@@ -18,7 +18,7 @@ function SignupForm() {
 
   const [{ error, loading, errorMessages }, postUserData] = useApiAxios(
     {
-      url: 'http://localhost:8000/accounts/api/signup/',
+      url: '/accounts/api/signup/',
       method: 'POST',
     },
     { manual: true },
