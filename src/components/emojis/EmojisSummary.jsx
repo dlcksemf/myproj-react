@@ -1,7 +1,9 @@
 import { useNavigate } from 'react-router-dom';
 
-function EmojisSummary({ emoji }) {
+function EmojisSummary({ emoji, imageVer }) {
   const navigate = useNavigate();
+
+  console.log(`emoji.${imageVer}`);
 
   return (
     <div
@@ -17,7 +19,7 @@ function EmojisSummary({ emoji }) {
       </div>
       <div className="absolute inset-0 transform hover:translate-y-16 transition duration-300">
         <img
-          src={emoji.apple_version}
+          src={emoji[imageVer]}
           alt={emoji.name}
           className="h-full w-full bg-white rounded-lg shadow-2xl"
         />
