@@ -6,21 +6,26 @@ function useFieldValues(initialValues) {
 
   // 함수 객체를 생성할 때, 의존성이 걸린 값이 변경시에만 함수를 재생성
   const handleFieldChange = useCallback((e) => {
-    const { name, value, files } = e.target;
+    const { type, name, value, files, checked } = e.target;
+
+    let newValue;
+    if (type === 'file') {
+      newValue = Array.from(files);
+    } else if (type === 'checkbox') {
+      newValue = checked;
+    } else {
+      newValue = value;
+    }
+
     setFieldValues((prevFieldValues) => {
       return {
         ...prevFieldValues,
-        [name]: files ? Array.from(files) : value,
+        [name]: newValue,
       };
     });
   }, []);
 
   const emptyFieldValues = useCallback(() => {
-    setFieldValues(initialValues);
-  }, [initialValues]);
-
-  // initialValues 속성값이 변경되면 fieldValues를 초기화합니다.
-  useEffect(() => {
     setFieldValues(initialValues);
   }, [initialValues]);
 
@@ -38,6 +43,11 @@ function useFieldValues(initialValues) {
       }, new FormData()),
     );
   }, [fieldValues]);
+
+  // initialValues 속성값이 변경되면 fieldValues를 초기화합니다.
+  useEffect(() => {
+    setFieldValues(initialValues);
+  }, [initialValues]);
 
   return {
     fieldValues,

@@ -33,6 +33,8 @@ function EmojisDetail({ emojiId }) {
 
       {data?.name}
       <img src={data?.apple_version} alt={data?.name} />
+      <img src={data?.google_version} alt={data?.name} />
+
       {data?.description}
       {data?.category}
 
