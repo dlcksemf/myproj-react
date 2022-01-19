@@ -1,8 +1,8 @@
 import { Link } from 'react-router-dom';
-import { useAuth } from 'contexts/AuthContext';
+import { useContextAuth } from 'contexts/AuthContext';
 
 function TopNav() {
-  const { auth, logout } = useAuth();
+  const { auth, logout } = useContextAuth();
 
   const handleLogout = () => {
     logout();
