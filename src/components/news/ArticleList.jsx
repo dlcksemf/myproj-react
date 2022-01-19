@@ -3,6 +3,7 @@ import DebugStates from 'components/DebugStates';
 import { useEffect } from 'react';
 import ArticleSummary from './ArticleSummary';
 import { useAuth } from 'contexts/AuthContext';
+import LoadingIndicator from 'components/LoadingIndicator';
 
 // 뉴스 기사 목록
 function ArticleList() {
@@ -20,7 +21,7 @@ function ArticleList() {
   return (
     <div>
       <h2>Article List</h2>
-      {loading && 'Loading ...'}
+      {loading && <LoadingIndicator />}
       {error && 'Error during Load.'}
 
       {articleList &&

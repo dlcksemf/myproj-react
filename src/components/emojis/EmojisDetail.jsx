@@ -1,5 +1,6 @@
 import { useApiAxios } from 'api/base';
 import Button from 'components/Button';
+import LoadingIndicator from 'components/LoadingIndicator';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -30,6 +31,12 @@ function EmojisDetail({ emojiId }) {
     <div>
       <h2>Emojis Detail</h2>
       <hr />
+
+      {loading && <LoadingIndicator />}
+      {error && 'Error during Load...'}
+
+      {deleteLoading && <LoadingIndicator>Deleting ...</LoadingIndicator>}
+      {deleteError && 'Error during Delete...'}
 
       {data?.name}
       <img src={data?.apple_version} alt={data?.name} />

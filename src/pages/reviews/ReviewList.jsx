@@ -4,6 +4,7 @@ import DebugStates from 'components/DebugStates';
 import Review from 'components/Review';
 import { useNavigate } from 'react-router-dom';
 import { axiosInstance } from 'api/base';
+import LoadingIndicator from 'components/LoadingIndicator';
 
 function PageReviewList() {
   const [loading, setLoading] = useState(false);
@@ -65,7 +66,7 @@ function PageReviewList() {
     <div>
       <h2>Review List</h2>
 
-      {loading && <div>Loading ...</div>}
+      {loading && <LoadingIndicator />}
       {error && <div>통신 중에 오류가 발생했습니다.</div>}
 
       <button

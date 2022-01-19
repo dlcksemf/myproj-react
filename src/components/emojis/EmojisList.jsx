@@ -3,6 +3,7 @@ import { useApiAxios } from 'api/base.js';
 import { useNavigate } from 'react-router-dom';
 import Button from 'components/Button';
 import EmojisSummary from './EmojisSummary';
+import LoadingIndicator from 'components/LoadingIndicator';
 
 const INITIAL_EMOJI_VER = 'apple_version';
 
@@ -51,6 +52,9 @@ function EmojisList() {
 
   return (
     <div>
+      {loading && <LoadingIndicator />}
+      {error && 'Error during Load ...'}
+
       <input type="text" onChange={getQuery} onKeyPress={searchEmojis} />
       <Button
         onClick={() => {

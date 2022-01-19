@@ -1,5 +1,6 @@
 import { useApiAxios } from 'api/base';
 import useFieldValues from 'components/hooks/useFieldValues';
+import LoadingIndicator from 'components/LoadingIndicator';
 import { useNavigate } from 'react-router-dom';
 
 // https://tailwindcomponents.com/component/sign-up-form-1
@@ -34,6 +35,9 @@ function SignupForm() {
   return (
     <div className="grid min-h-screen place-items-center">
       <div className="w-11/12 p-12 bg-white sm:w-8/12 md:w-1/2 lg:w-5/12">
+        {loading && <LoadingIndicator />}
+        {error && 'Error during Signup...'}
+
         <h1 className="text-xl font-semibold">
           Hello there 👋,
           <span className="font-normal">

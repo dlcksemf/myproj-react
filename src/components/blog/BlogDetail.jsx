@@ -1,12 +1,12 @@
 // https://tailwindcomponents.com/component/avatar-ui-design
 
 import { useNavigate } from 'react-router-dom';
-import { useContext, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useApiAxios } from 'api/base';
 import BlogDeleteConfirm from './BlogDeleteConfirm';
 import LoadingIndicator from 'components/LoadingIndicator';
 import ErrorWarning from 'components/ErrorWarning';
-import { toast, ToastContainer } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 function BlogDetail({ postId }) {

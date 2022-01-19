@@ -66,6 +66,8 @@ function PageReviewForm() {
   // 표현 by jsx -> 별도의 컴포넌트로 구분
   return (
     <div>
+      {error && '에러 발생!!'}
+
       <h2>Review Form</h2>
 
       <ReviewForm

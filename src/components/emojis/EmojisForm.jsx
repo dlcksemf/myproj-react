@@ -1,14 +1,9 @@
 import { useApiAxios } from 'api/base';
-
-import DebugStates from 'components/DebugStates';
-
 import { createContext, useEffect } from 'react';
-
 import useFieldValues from 'components/hooks/useFieldValues';
-
 import Input from 'components/Input';
-
 import produce from 'immer';
+import LoadingIndicator from 'components/LoadingIndicator';
 
 // https://tailwindcomponents.com/component/form-with-file-input
 
@@ -37,9 +32,7 @@ function EmojisForm({ emojiId, handleDidSave }) {
   const [
     {
       loading: saveLoading,
-
       error: saveError,
-
       errorMessages: saveErrorMessages,
     },
 
@@ -82,6 +75,12 @@ function EmojisForm({ emojiId, handleDidSave }) {
   return (
     <div>
       <h2>Emojis Form</h2>
+
+      {getLoading && <LoadingIndicator />}
+      {getError && 'Error during Load ...'}
+
+      {saveLoading && <LoadingIndicator>Saving ...</LoadingIndicator>}
+      {saveError && 'Error during Save...'}
 
       <div className="flex bg-gray-200 items-center justify-center">
         <div className="grid bg-white rounded-lg shadow-xl w-11/12 md:w-9/12 lg:w-1/2 m-3">
