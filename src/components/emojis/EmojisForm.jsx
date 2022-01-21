@@ -23,11 +23,12 @@ const INIT_FIELD_VALUES = {
 const InputContext = createContext();
 
 function EmojisForm({ emojiId, handleDidSave }) {
-  const [{ data: emoji, loading: getLoading, error: getError }] = useApiAxios(
-    `emojis/api/emojis/${emojiId}/`,
+  const [{ data: emoji, loading: getLoading, error: getError }, refetch] =
+    useApiAxios(
+      `emojis/api/emojis/${emojiId}/`,
 
-    { manual: !emojiId },
-  );
+      { manual: !emojiId },
+    );
 
   const [
     {
@@ -71,6 +72,10 @@ function EmojisForm({ emojiId, handleDidSave }) {
       if (handleDidSave) handleDidSave(savedEmoji);
     });
   };
+
+  useEffect(() => {
+    refetch();
+  }, []);
 
   return (
     <div>

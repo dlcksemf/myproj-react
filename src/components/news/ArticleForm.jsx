@@ -17,14 +17,15 @@ const INIT_FIELD_VALUES = { title: '', content: '' };
 function ArticleForm({ articleId, handleDidSave }) {
   const { auth } = useAuth();
 
-  const [{ data: article, loading: getLoading, error: getError }] = useApiAxios(
-    {
-      url: `/news/api/articles/${articleId}/`,
-      method: 'GET',
-      headers: { Authorization: `Bearer ${auth.access}` },
-    },
-    { manual: !articleId },
-  );
+  const [{ data: article, loading: getLoading, error: getError }, refetch] =
+    useApiAxios(
+      {
+        url: `/news/api/articles/${articleId}/`,
+        method: 'GET',
+        headers: { Authorization: `Bearer ${auth.access}` },
+      },
+      { manual: !articleId },
+    );
 
   const [
     {
@@ -44,6 +45,10 @@ function ArticleForm({ articleId, handleDidSave }) {
 
   const { fieldValues, handleFieldChange, setFieldValues, formData } =
     useFieldValues(article || INIT_FIELD_VALUES);
+
+  useEffect(() => {
+    refetch();
+  }, []);
 
   useEffect(() => {
     // 11: 30 => 수정시에 photo error

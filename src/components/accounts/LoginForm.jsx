@@ -16,7 +16,7 @@ function LoginForm() {
 
   const [{ loading, error, errorMessages }, requestToken] = useApiAxios(
     {
-      url: 'http://127.0.0.1:8000/accounts/api/token/',
+      url: '/accounts/api/token/',
       method: 'POST',
     },
     {
